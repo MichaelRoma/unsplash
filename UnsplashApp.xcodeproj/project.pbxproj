@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C4C3F4024EEC14200BCF0CA /* WaterFallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C3F3F24EEC14200BCF0CA /* WaterFallLayout.swift */; };
 		4C4C3F4324EF86FE00BCF0CA /* MainVCSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C3F4224EF86FE00BCF0CA /* MainVCSection.swift */; };
 		4C4C3F4524EF871C00BCF0CA /* MainVCItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C3F4424EF871C00BCF0CA /* MainVCItems.swift */; };
+		4C4C3F4824F1320B00BCF0CA /* PhotosInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C3F4724F1320B00BCF0CA /* PhotosInfoViewController.swift */; };
+		4C4C3F4A24F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C3F4924F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift */; };
+		4C4C3F4C24F1336800BCF0CA /* PhotoInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C3F4B24F1336800BCF0CA /* PhotoInfoModel.swift */; };
+		4C4C3F4E24F14BDF00BCF0CA /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C3F4D24F14BDF00BCF0CA /* MainTabBarController.swift */; };
 		4C9D792524E431570043F85F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D792424E431570043F85F /* AppDelegate.swift */; };
 		4C9D792924E431570043F85F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D792824E431570043F85F /* MainViewController.swift */; };
 		4C9D792E24E4315D0043F85F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D792D24E4315D0043F85F /* Assets.xcassets */; };
@@ -22,9 +25,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4C4C3F3F24EEC14200BCF0CA /* WaterFallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterFallLayout.swift; sourceTree = "<group>"; };
 		4C4C3F4224EF86FE00BCF0CA /* MainVCSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCSection.swift; sourceTree = "<group>"; };
 		4C4C3F4424EF871C00BCF0CA /* MainVCItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCItems.swift; sourceTree = "<group>"; };
+		4C4C3F4724F1320B00BCF0CA /* PhotosInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosInfoViewController.swift; sourceTree = "<group>"; };
+		4C4C3F4924F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		4C4C3F4B24F1336800BCF0CA /* PhotoInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfoModel.swift; sourceTree = "<group>"; };
+		4C4C3F4D24F14BDF00BCF0CA /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		4C9D792124E431570043F85F /* UnsplashApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9D792424E431570043F85F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C9D792824E431570043F85F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -54,8 +60,18 @@
 			children = (
 				4C4C3F4224EF86FE00BCF0CA /* MainVCSection.swift */,
 				4C4C3F4424EF871C00BCF0CA /* MainVCItems.swift */,
+				4C4C3F4B24F1336800BCF0CA /* PhotoInfoModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4C4C3F4624F131AB00BCF0CA /* PhotosInfoVC */ = {
+			isa = PBXGroup;
+			children = (
+				4C4C3F4724F1320B00BCF0CA /* PhotosInfoViewController.swift */,
+				4C4C3F4924F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift */,
+			);
+			path = PhotosInfoVC;
 			sourceTree = "<group>";
 		};
 		4C9D791824E431570043F85F = {
@@ -78,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9D792424E431570043F85F /* AppDelegate.swift */,
+				4C4C3F4624F131AB00BCF0CA /* PhotosInfoVC */,
 				4C4C3F4124EF86E800BCF0CA /* Models */,
 				4CF74A8424E8117500C2C11E /* MainVC */,
 				4CF74A8524E8EBE300C2C11E /* ProfileVC */,
@@ -92,6 +109,7 @@
 		4CF74A8424E8117500C2C11E /* MainVC */ = {
 			isa = PBXGroup;
 			children = (
+				4C4C3F4D24F14BDF00BCF0CA /* MainTabBarController.swift */,
 				4C9D792824E431570043F85F /* MainViewController.swift */,
 				4CF74A8224E8113600C2C11E /* MainVCControlCell.swift */,
 				4CF74A8024E7A49200C2C11E /* MainVCImageCell.swift */,
@@ -103,7 +121,6 @@
 			isa = PBXGroup;
 			children = (
 				4CF74A7C24E794C800C2C11E /* ProfileViewController.swift */,
-				4C4C3F3F24EEC14200BCF0CA /* WaterFallLayout.swift */,
 				4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */,
 			);
 			path = ProfileVC;
@@ -179,15 +196,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C4C3F4024EEC14200BCF0CA /* WaterFallLayout.swift in Sources */,
 				4CF74A7D24E794C800C2C11E /* ProfileViewController.swift in Sources */,
+				4C4C3F4824F1320B00BCF0CA /* PhotosInfoViewController.swift in Sources */,
 				4C4C3F4524EF871C00BCF0CA /* MainVCItems.swift in Sources */,
 				4CF74A7F24E794E700C2C11E /* NewPosTViewController.swift in Sources */,
 				4CF74A8124E7A49200C2C11E /* MainVCImageCell.swift in Sources */,
 				4CF74A8724E8EC1200C2C11E /* ProfileCellTop.swift in Sources */,
+				4C4C3F4A24F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift in Sources */,
+				4C4C3F4E24F14BDF00BCF0CA /* MainTabBarController.swift in Sources */,
 				4CF74A8324E8113600C2C11E /* MainVCControlCell.swift in Sources */,
 				4C9D792924E431570043F85F /* MainViewController.swift in Sources */,
 				4C9D792524E431570043F85F /* AppDelegate.swift in Sources */,
+				4C4C3F4C24F1336800BCF0CA /* PhotoInfoModel.swift in Sources */,
 				4C4C3F4324EF86FE00BCF0CA /* MainVCSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

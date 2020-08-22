@@ -17,7 +17,6 @@ class MainVCImageCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        
         imageView.backgroundColor = .gray
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true

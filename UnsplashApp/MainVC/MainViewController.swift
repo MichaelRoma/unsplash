@@ -13,17 +13,17 @@ class MainViewController: UIViewController {
     let sections: [MainVCSection] = [MainVCSection(type: "first", id: 0, items: [
         MainVCItems(imagePath: "")]),
                                      MainVCSection(type: "second", id: 1, items: [
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: ""),
-                        MainVCItems(imagePath: "")
-                    ])]
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: "")
+                                     ])]
     
     var dataSource: UICollectionViewDiffableDataSource<MainVCSection, MainVCItems>?
     
@@ -53,11 +53,6 @@ extension MainViewController {
         
         createDataSource()
         reloadData()
-        
-        //        collectionView.delegate = self
-        //        collectionView.dataSource = self
-        
-        
     }
     
     private func createDataSource() {
@@ -66,9 +61,7 @@ extension MainViewController {
             case "first":
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCControlCell.reuseId, for: indexPath) as! MainVCControlCell
                 cell.delegat = self
-               // cell.backgroundColor = .blue
                 return cell
-                
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCImageCell.reuseId, for: indexPath) as! MainVCImageCell
                 return cell
@@ -83,25 +76,17 @@ extension MainViewController {
         for section in sections {
             snapshot.appendItems(section.items, toSection: section)
         }
-        
         dataSource?.apply(snapshot)
     }
     
     private func createCompositionLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { (someNumber, layoutEnviroment) -> NSCollectionLayoutSection? in
             let section = self.sections[someNumber]
-            
             switch section.type {
             case "first": return self.createControlSection()
             default:
                 return self.createMainSection()
             }
-            
-            //
-            //    someNumber == 0 ? self.createControlSection() : self.createMainSection()
-            // self.createMainSection()
-            //    self.createMainSectionGrid2x2()
-            
         }
         return layout
     }
@@ -150,39 +135,14 @@ extension MainViewController {
     }
 }
 
-////MARK: UICollectionViewDataSource, UICollectionViewDelegate
-//extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-//
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        2
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        50
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//    //    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-////let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCControlCell.reuseId, for: indexPath) as! MainVCControlCell
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCImageCell.reuseId, for: indexPath) as! MainVCImageCell
-//    //    cell.delegat = self
-//         //  cell.backgroundColor = .blue
-//        return cell
-//
-//    }
-//}
-
 extension MainViewController: SegmentedControllProtocol {
-    func buttonAction(cell: MainVCControlCell, tag: Int) {
+    internal func buttonAction(cell: MainVCControlCell, tag: Int) {
         if tag == 0 {
             cell.buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2.fill"), for: .normal)
             cell.buttonFirst.tintColor = .black
             
             cell.buttonSecond.setImage(UIImage(systemName: "rectangle.grid.2x2"), for: .normal)
             cell.buttonSecond.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            print("jknkjnkj")
-            reloadData()
-//            collectionView.setCollectionViewLayout(UICollectionViewCompositionalLayout(section: createMainSectionGrid2x2()), animated: true)
             
         } else {
             cell.buttonSecond.setImage(UIImage(systemName: "rectangle.grid.2x2.fill"), for: .normal)
@@ -191,13 +151,10 @@ extension MainViewController: SegmentedControllProtocol {
             cell.buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2"), for: .normal)
             cell.buttonFirst.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
             reloadData()
-//
-//            collectionView.setCollectionViewLayout(UICollectionViewCompositionalLayout(section: createMainSection()), animated: true)
-            
         }
     }
     
-    func actionSV(index: Int) {
+    internal func actionSV(index: Int) {
         print("Working: \(index)")
     }
 }

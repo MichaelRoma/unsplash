@@ -6,6 +6,7 @@
 //  Copyright © 2020 Mykhailo Romanovskyi. All rights reserved.
 //
 import UIKit
+
 struct MainVCItems: Hashable {
     let imagePath: String?
     let uuid = UUID()

@@ -16,20 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let tabBarVC = UITabBarController()
-        
-        let mainVC = MainViewController()
-        mainVC.tabBarItem.image = UIImage(systemName: "house")
-        
-        let newPostVC = NewPosTViewController()
-        newPostVC.tabBarItem.image = UIImage(systemName: "plus")
-        
-       
-        let profileVC = ProfileViewController()
-        let profileVCNav = UINavigationController(rootViewController: profileVC)
-        profileVC.tabBarItem.image = UIImage(systemName: "person")
-        
-        tabBarVC.viewControllers = [mainVC, newPostVC, profileVCNav]
+        let tabBarVC = MainTabBarController()
         window?.rootViewController = tabBarVC
         return true
     }

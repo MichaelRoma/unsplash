@@ -10,15 +10,28 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    let sections: [MainVCSection] = [MainVCSection(type: "first", id: 0, items: [
+        MainVCItems(imagePath: "")]),
+                                     MainVCSection(type: "second", id: 1, items: [
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: "")
+                                     ])]
+    
+    var dataSource: UICollectionViewDiffableDataSource<MainVCSection, MainVCItems>?
     var collectionView: UICollectionView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
-       // navigationController?.title = "@NolanEd"
-    title =  "@NolanEd"
-            //   navigationController?.tabBarItem.title = "@NolanEd"
-     
+        navigationItem.title = "@NolanEd"     
         createCollectionView()
     }
 }
@@ -32,18 +45,47 @@ extension ProfileViewController {
         
         collectionView.register(ProfileCellTop.self, forCellWithReuseIdentifier: ProfileCellTop.reuseId)
         
+        collectionView.register(MainVCImageCell.self, forCellWithReuseIdentifier: MainVCImageCell.reuseId)
+        
         view.addSubview(collectionView)
+        createDataSource()
+        reloadData()
+    }
+    
+    private func createDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<MainVCSection, MainVCItems>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+            switch self.sections[indexPath.section].type {
+            case "first":
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCellTop.reuseId, for: indexPath) as! ProfileCellTop
+                return cell
+            default:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCImageCell.reuseId, for: indexPath) as! MainVCImageCell
+                return cell
+            }
+        })
+    }
+    
+    private func reloadData() {
+        var snapshot = NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>()
+        snapshot.appendSections(sections)
         
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        for section in sections {
+            snapshot.appendItems(section.items, toSection: section)
+        }
         
+        dataSource?.apply(snapshot)
     }
     
     private func createCompositionLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            self.createTopSection()
+        let layout = UICollectionViewCompositionalLayout { (someNumber, layoutEnviroment) -> NSCollectionLayoutSection? in
+            let section = self.sections[someNumber]
+            
+            switch section.type {
+            case "first": return self.createTopSection()
+            default:
+                return self.createwaterfallSection()
+            }
         }
-        
         return layout
     }
     
@@ -58,24 +100,32 @@ extension ProfileViewController {
         section.contentInsets = NSDirectionalEdgeInsets.init(top: 33, leading: 41, bottom: 0, trailing: 38)
         return section
     }
-}
-
-//MARK: UICollectionViewDataSource, UICollectionViewDelegate
-extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
+    private func createwaterfallSection() -> NSCollectionLayoutSection {
+        let smallItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(117))
+        let bigItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(213))
+        
+        let smallItemLeft = NSCollectionLayoutItem(layoutSize: smallItemSize)
+        smallItemLeft.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 15, trailing: 0)
+        let bigItemLeft = NSCollectionLayoutItem(layoutSize: bigItemSize)
+        bigItemLeft.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 15, trailing: 0)
+        
+        let smallItemRight = NSCollectionLayoutItem(layoutSize: smallItemSize)
+        smallItemRight.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 15, trailing: 0)
+        let bigItemRight = NSCollectionLayoutItem(layoutSize: bigItemSize)
+        bigItemRight.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 15, trailing: 0)
+        
+        let leftGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1)), subitems: [smallItemLeft, bigItemLeft])
+        leftGroup.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 15)
+        
+        let rightGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1)), subitems: [bigItemRight, smallItemRight])
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(330))
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [leftGroup, rightGroup])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: 24, leading: 20, bottom: 0, trailing: 20)
+        return section
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCellTop.reuseId, for: indexPath) as! ProfileCellTop
-        cell.backgroundColor = .cyan
-        return cell
-    }
-    
-    
 }
