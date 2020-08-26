@@ -66,6 +66,7 @@ extension PhotosInfoViewController {
         dataSource = UICollectionViewDiffableDataSource<Section, PhotoInfoModel>(collectionView: collectionView, cellProvider: { (collectionview, indexPath, model) -> UICollectionViewCell? in
         
             let cell = collectionview.dequeueReusableCell(withReuseIdentifier: PhotosInfoCollectionViewCell.reuseId, for: indexPath) as? PhotosInfoCollectionViewCell
+            cell?.delegate = self
             return cell
         })
     }
@@ -75,5 +76,15 @@ extension PhotosInfoViewController {
         snapShot.appendSections([.main])
         snapShot.appendItems(model)
         dataSource?.apply(snapShot)
+    }
+}
+
+extension PhotosInfoViewController: HeartButtonProtocol {
+    func heartButtonPressed(cell: PhotosInfoCollectionViewCell) {
+        if cell.heartButton.tintColor == .red {
+            cell.heartButton.tintColor = .gray
+        } else {
+            cell.heartButton.tintColor = .red
+        }
     }
 }

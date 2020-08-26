@@ -37,7 +37,7 @@ class MainVCControlCell: UICollectionViewCell {
         delegat?.actionSV(index: a)
     }
     
-    @objc private func buttonPressed(_ sender:UIButton) {
+    @objc private func buttonPressed(_ sender: UIButton) {
         delegat?.buttonAction(cell: self, tag: sender.tag)
     }
 }
@@ -70,8 +70,8 @@ extension MainVCControlCell {
         styleSegment.tintColor = .brown
         styleSegment.backgroundColor = .none
         
-        buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2"), for: .normal)
-        buttonFirst.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2.fill"), for: .normal)
+        buttonFirst.tintColor = .black
         buttonFirst.tag = 0
         buttonFirst.addTarget(self,action: #selector(buttonPressed), for: .touchUpInside)
         

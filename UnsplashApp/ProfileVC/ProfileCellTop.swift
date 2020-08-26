@@ -5,6 +5,9 @@
 //  Created by Mykhailo Romanovskyi on 16.08.2020.
 //  Copyright © 2020 Mykhailo Romanovskyi. All rights reserved.
 //
+protocol ActionManagerForProfileCellTop: class {
+    func ButtonAction(cell: ProfileCellTop, tag: Int)
+}
 
 import UIKit
 
@@ -15,9 +18,12 @@ class ProfileCellTop: UICollectionViewCell {
     private let followButton = UIButton(type: .system)
     private let nameLabel = UILabel()
     private let titleLabel = UILabel()
-    private let photoslabel = UILabel()
-    private let likesLabel = UILabel()
-    private let collectionsLabel = UILabel()
+    
+    let photosButton = UIButton(type: .system)
+    let likesButton = UIButton(type: .system)
+    let collectionsButton = UIButton(type: .system)
+    
+    weak var delegat: ActionManagerForProfileCellTop?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,9 +39,9 @@ class ProfileCellTop: UICollectionViewCell {
     func configurator() {
         nameLabel.text = "Edward Nolan"
         titleLabel.text = "Photography lover from 8 years"
-        photoslabel.text = "8 Pgotos"
-        likesLabel.text = "176 Likes"
-        collectionsLabel.text = "6 Collections"
+        photosButton.setTitle("8 Pgotos", for: .normal)
+        likesButton.setTitle("176 Likes", for: .normal)
+        collectionsButton.setTitle("6 Collections", for: .normal)
     }
 }
 
@@ -46,17 +52,25 @@ extension ProfileCellTop {
         
         nameLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 20)
         titleLabel.font = UIFont(name: "HelveticaNeue", size: 14)
-        photoslabel.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
-        likesLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
-        collectionsLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
+        
+        photosButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
+        likesButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
+        collectionsButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
+
+        photosButton.tag = 0
+        likesButton.tag = 1
+        collectionsButton.tag = 2
         
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         
         avatarImageView.backgroundColor = .brown
         titleLabel.textColor = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1)
-        likesLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
-        collectionsLabel.textColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+        
+        photosButton.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        likesButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+        collectionsButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+        
         followButton.tintColor = .white
         followButton.backgroundColor = UIColor(red: 45/255, green: 164/255, blue: 1, alpha: 1)
         
@@ -64,6 +78,10 @@ extension ProfileCellTop {
         followButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         followButton.titleEdgeInsets = UIEdgeInsets(top: 5, left: 9, bottom: 5, right: 9)
         followButton.layer.cornerRadius = 5
+        
+        photosButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
+        likesButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
+        collectionsButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
         
     }
     
@@ -74,7 +92,7 @@ extension ProfileCellTop {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let bottomStack = UIStackView(arrangedSubviews: [photoslabel, likesLabel, collectionsLabel])
+        let bottomStack = UIStackView(arrangedSubviews: [photosButton, likesButton, collectionsButton])
         bottomStack.axis = .horizontal
         bottomStack.spacing = 42
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
@@ -114,6 +132,10 @@ extension ProfileCellTop {
             bottomStack.centerXAnchor.constraint(equalTo: centerXAnchor),
             bottomStack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 19)
         ])
+    }
+
+    @objc private func  labelSwitcher(_ sender: UIButton) {
+        delegat?.ButtonAction(cell: self, tag: sender.tag)
     }
 }
 

@@ -57,6 +57,7 @@ extension ProfileViewController {
             switch self.sections[indexPath.section].type {
             case "first":
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCellTop.reuseId, for: indexPath) as! ProfileCellTop
+                cell.delegat = self
                 return cell
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCImageCell.reuseId, for: indexPath) as! MainVCImageCell
@@ -127,5 +128,25 @@ extension ProfileViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets.init(top: 24, leading: 20, bottom: 0, trailing: 20)
         return section
+    }
+}
+
+extension ProfileViewController: ActionManagerForProfileCellTop {
+    
+    func ButtonAction(cell: ProfileCellTop, tag: Int) {
+        switch tag {
+        case 0:
+            cell.photosButton.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            cell.likesButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+            cell.collectionsButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+        case 1:
+            cell.photosButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+            cell.likesButton.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            cell.collectionsButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+        default:
+            cell.photosButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+            cell.likesButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+            cell.collectionsButton.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        }
     }
 }

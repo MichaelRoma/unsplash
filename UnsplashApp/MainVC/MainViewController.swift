@@ -26,8 +26,10 @@ class MainViewController: UIViewController {
                                      ])]
     
     var dataSource: UICollectionViewDiffableDataSource<MainVCSection, MainVCItems>?
+    var currentSnapshot: NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>?
     
     var collectionView: UICollectionView!
+    private var collums = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +52,6 @@ extension MainViewController {
         collectionView.register(MainVCControlCell.self, forCellWithReuseIdentifier: MainVCControlCell.reuseId)
         
         view.addSubview(collectionView)
-        
         createDataSource()
         reloadData()
     }
@@ -70,13 +71,14 @@ extension MainViewController {
     }
     
     private func reloadData() {
-        var snapshot = NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>()
-        snapshot.appendSections(sections)
+        currentSnapshot = NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>()
+        
+        currentSnapshot?.appendSections(sections)
         
         for section in sections {
-            snapshot.appendItems(section.items, toSection: section)
+            currentSnapshot?.appendItems(section.items, toSection: section)
         }
-        dataSource?.apply(snapshot)
+        dataSource?.apply(currentSnapshot!)
     }
     
     private func createCompositionLayout() -> UICollectionViewLayout {
@@ -85,7 +87,7 @@ extension MainViewController {
             switch section.type {
             case "first": return self.createControlSection()
             default:
-                return self.createMainSection()
+                return self.createMainSectionGrid2x2()
             }
         }
         return layout
@@ -104,18 +106,17 @@ extension MainViewController {
         
         return section
     }
-    
     private func createMainSectionGrid2x2() -> NSCollectionLayoutSection{
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 10, trailing: 0)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(166))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: collums)
         group.interItemSpacing = .fixed(CGFloat(7))
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 20, bottom: 0, trailing: 20)
+        section.contentInsets = NSDirectionalEdgeInsets.init(top: 10, leading: 20, bottom: 0, trailing: 20)
         
         return section
         
@@ -143,6 +144,8 @@ extension MainViewController: SegmentedControllProtocol {
             
             cell.buttonSecond.setImage(UIImage(systemName: "rectangle.grid.2x2"), for: .normal)
             cell.buttonSecond.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            collums = 1
+            dataSource?.apply(currentSnapshot!)
             
         } else {
             cell.buttonSecond.setImage(UIImage(systemName: "rectangle.grid.2x2.fill"), for: .normal)
@@ -150,7 +153,8 @@ extension MainViewController: SegmentedControllProtocol {
             
             cell.buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2"), for: .normal)
             cell.buttonFirst.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            reloadData()
+            collums = 2
+            dataSource?.apply(currentSnapshot!)
         }
     }
     

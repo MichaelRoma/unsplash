@@ -5,6 +5,9 @@
 //  Created by Mykhailo Romanovskyi on 22.08.2020.
 //  Copyright © 2020 Mykhailo Romanovskyi. All rights reserved.
 //
+protocol HeartButtonProtocol: class {
+    func heartButtonPressed(cell: PhotosInfoCollectionViewCell)
+}
 
 import UIKit
 
@@ -14,8 +17,10 @@ class PhotosInfoCollectionViewCell: UICollectionViewCell {
     
     private let imageView = UIImageView()
     private let nameLabel = UILabel()
-    private let heartButton = UIButton()
     private let infoLabel = UILabel()
+    let heartButton = UIButton()
+    
+    weak var delegate: HeartButtonProtocol?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,6 +52,12 @@ extension PhotosInfoCollectionViewCell {
         
         heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
         heartButton.tintColor = .red
+        
+        heartButton.addTarget(self, action: #selector(heartPressed), for: .touchUpInside)
+    }
+    
+    @objc private func heartPressed() {
+        delegate?.heartButtonPressed(cell: self)
     }
     
     private func setupConstraints() {
