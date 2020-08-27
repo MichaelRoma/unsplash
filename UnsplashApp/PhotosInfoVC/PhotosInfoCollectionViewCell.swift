@@ -19,6 +19,7 @@ class PhotosInfoCollectionViewCell: UICollectionViewCell {
     private let nameLabel = UILabel()
     private let infoLabel = UILabel()
     let heartButton = UIButton()
+    var isLiked = false
     
     weak var delegate: HeartButtonProtocol?
     
@@ -35,7 +36,7 @@ class PhotosInfoCollectionViewCell: UICollectionViewCell {
     
     func configurator() {
         nameLabel.text = "Edward Nolan"
-        heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        heartButton.setImage(#imageLiteral(resourceName: "Heart_Liked-gray"), for: .normal)
         infoLabel.text =  "449 Likes - 2,289,890 Views - 13,089 Downloads"
     }
 }
@@ -49,14 +50,15 @@ extension PhotosInfoCollectionViewCell {
         infoLabel.textColor = UIColor(red: 152/255, green: 152/255, blue: 152/255, alpha: 1)
         
         imageView.backgroundColor = .gray
-        
-        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        heartButton.tintColor = .red
+        imageView.layer.cornerRadius = 5
+    
+        heartButton.setImage(#imageLiteral(resourceName: "Heart_Liked-gray"), for: .normal)
         
         heartButton.addTarget(self, action: #selector(heartPressed), for: .touchUpInside)
     }
     
     @objc private func heartPressed() {
+        isLiked = isLiked ? false : true
         delegate?.heartButtonPressed(cell: self)
     }
     

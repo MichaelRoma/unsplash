@@ -58,6 +58,8 @@ extension MainVCControlCell {
                                                       UIImage(systemName: "rectangle.grid.2x2")!
         ])
         
+        nameSegmentedControl.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+        
         nameSegmentedControl.selectedSegmentTintColor = .clear
         nameSegmentedControl.setTitleTextAttributes(attributesGray, for: .normal)
         nameSegmentedControl.setTitleTextAttributes(attributesBlack, for: .selected)
@@ -65,6 +67,11 @@ extension MainVCControlCell {
         nameSegmentedControl.backgroundColor = .white
         nameSegmentedControl.selectedSegmentTintColor = .white
         nameSegmentedControl.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
+        
+        nameSegmentedControl.setWidth(70, forSegmentAt: 0)
+        nameSegmentedControl.setWidth(47, forSegmentAt: 1)
+        nameSegmentedControl.setWidth(70, forSegmentAt: 2)
+        
         nameSegmentedControl.addTarget(self, action: #selector(actionStyleSegmented(_:)), for: .valueChanged)
         
         styleSegment.tintColor = .brown
@@ -85,10 +92,10 @@ extension MainVCControlCell {
         
         let secondStack = UIStackView(arrangedSubviews: [buttonFirst, buttonSecond])
         secondStack.axis = .horizontal
+        secondStack.spacing = 11
         
         let stack = UIStackView(arrangedSubviews: [nameSegmentedControl, secondStack])
         stack.axis = .horizontal
-        
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(stack)

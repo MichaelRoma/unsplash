@@ -81,10 +81,11 @@ extension PhotosInfoViewController {
 
 extension PhotosInfoViewController: HeartButtonProtocol {
     func heartButtonPressed(cell: PhotosInfoCollectionViewCell) {
-        if cell.heartButton.tintColor == .red {
-            cell.heartButton.tintColor = .gray
+        if cell.isLiked {
+            cell.heartButton.setImage(#imageLiteral(resourceName: "Heart_Liked-red"), for: .normal)
+            
         } else {
-            cell.heartButton.tintColor = .red
+            cell.heartButton.setImage(#imageLiteral(resourceName: "Heart_Liked-gray"), for: .normal)
         }
     }
 }

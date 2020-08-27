@@ -74,15 +74,16 @@ extension ProfileCellTop {
         followButton.tintColor = .white
         followButton.backgroundColor = UIColor(red: 45/255, green: 164/255, blue: 1, alpha: 1)
         
-        followButton.setTitle("Follow", for: .normal)
+        followButton.setTitle("FOLLOW", for: .normal)
         followButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        followButton.titleEdgeInsets = UIEdgeInsets(top: 5, left: 9, bottom: 5, right: 9)
+      //  followButton.titleEdgeInsets = UIEdgeInsets(top: 5, left: 9, bottom: 5, right: 9)
+     //   followButton.titleLabel?.font = UIFont.init(name: "SFUIText-Semibold", size: 14)
         followButton.layer.cornerRadius = 5
         
         photosButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
         likesButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
         collectionsButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
-        
+       // followButton.intrinsicContentSize
     }
     
     private func setupConstraits() {

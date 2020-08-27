@@ -37,6 +37,7 @@
 		4C9D792D24E4315D0043F85F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C9D793024E4315D0043F85F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C9D793224E4315D0043F85F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CA9854524F776A6001478E9 /* SFUIText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Semibold.ttf"; sourceTree = "<group>"; };
 		4CF74A7C24E794C800C2C11E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4CF74A7E24E794E700C2C11E /* NewPosTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPosTViewController.swift; sourceTree = "<group>"; };
 		4CF74A8024E7A49200C2C11E /* MainVCImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCImageCell.swift; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9D792324E431570043F85F /* UnsplashApp */,
+				4C9D792424E431570043F85F /* AppDelegate.swift */,
 				4C9D792224E431570043F85F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -93,7 +95,6 @@
 		4C9D792324E431570043F85F /* UnsplashApp */ = {
 			isa = PBXGroup;
 			children = (
-				4C9D792424E431570043F85F /* AppDelegate.swift */,
 				4C4C3F4624F131AB00BCF0CA /* PhotosInfoVC */,
 				4C4C3F4124EF86E800BCF0CA /* Models */,
 				4CF74A8424E8117500C2C11E /* MainVC */,
@@ -101,6 +102,7 @@
 				4CF74A7E24E794E700C2C11E /* NewPosTViewController.swift */,
 				4C9D792D24E4315D0043F85F /* Assets.xcassets */,
 				4C9D792F24E4315D0043F85F /* LaunchScreen.storyboard */,
+				4CA9854524F776A6001478E9 /* SFUIText-Semibold.ttf */,
 				4C9D793224E4315D0043F85F /* Info.plist */,
 			);
 			path = UnsplashApp;
