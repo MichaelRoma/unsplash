@@ -65,6 +65,7 @@ extension ProfileCellTop {
         titleLabel.numberOfLines = 0
         
         avatarImageView.backgroundColor = .brown
+        avatarImageView.layer.cornerRadius = 8
         titleLabel.textColor = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1)
         
         photosButton.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -74,12 +75,16 @@ extension ProfileCellTop {
         followButton.tintColor = .white
         followButton.backgroundColor = UIColor(red: 45/255, green: 164/255, blue: 1, alpha: 1)
         
+        
         followButton.setTitle("FOLLOW", for: .normal)
         followButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
       //  followButton.titleEdgeInsets = UIEdgeInsets(top: 5, left: 9, bottom: 5, right: 9)
      //   followButton.titleLabel?.font = UIFont.init(name: "SFUIText-Semibold", size: 14)
         followButton.layer.cornerRadius = 5
-        
+        followButton.layer.shadowColor = UIColor(red: 155/255, green: 211/255, blue: 1, alpha: 0.2).cgColor
+        followButton.layer.shadowRadius = 6
+        followButton.layer.shadowOpacity = 1
+        followButton.layer.shadowOffset = CGSize(width: 3, height: 3)
         photosButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
         likesButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
         collectionsButton.addTarget(self, action: #selector(labelSwitcher(_:)), for: .touchUpInside)
@@ -131,7 +136,7 @@ extension ProfileCellTop {
         
         NSLayoutConstraint.activate([
             bottomStack.centerXAnchor.constraint(equalTo: centerXAnchor),
-            bottomStack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 19)
+            bottomStack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 13)
         ])
     }
 

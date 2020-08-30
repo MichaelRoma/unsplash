@@ -23,8 +23,12 @@ class ProfileViewController: UIViewController {
                                         MainVCItems(imagePath: ""),
                                         MainVCItems(imagePath: ""),
                                         MainVCItems(imagePath: ""),
+                                        MainVCItems(imagePath: ""),
                                         MainVCItems(imagePath: "")
                                      ])]
+    
+    // Массив для тестирования водопад layout с разным соотношением сторон. Создаем массив соотношений. height /  width = x - массив иксов. Затем высоту будем задавать отностительно ширины - height = x * width
+    let rateArr = [1,1.2,1.5,0.5,0.9,0.5,1,1,1.3,1.3,1.2, 0.5]
     
     var dataSource: UICollectionViewDiffableDataSource<MainVCSection, MainVCItems>?
     var collectionView: UICollectionView!
@@ -41,7 +45,7 @@ extension ProfileViewController {
     private func createCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .purple
+        collectionView.backgroundColor = .white
         
         collectionView.register(ProfileCellTop.self, forCellWithReuseIdentifier: ProfileCellTop.reuseId)
         
@@ -61,6 +65,9 @@ extension ProfileViewController {
                 return cell
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCImageCell.reuseId, for: indexPath) as! MainVCImageCell
+                
+                cell.imageView.backgroundColor = indexPath.item % 2 == 0 ? .red : .gray
+                cell.label.text = "\(indexPath.item)"
                 return cell
             }
         })
@@ -94,7 +101,7 @@ extension ProfileViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(200))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(174))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -103,6 +110,31 @@ extension ProfileViewController {
     }
     
     private func createwaterfallSection() -> NSCollectionLayoutSection {
+        // Random Item Creation
+        var leftArr = 0.0
+        var rightArr = 0.0
+        var leftGroupItem = [NSCollectionLayoutItem]()
+        var rightGroupItem = [NSCollectionLayoutItem]()
+        
+        for (index, value) in rateArr.enumerated() {
+            if index % 2 == 0 {
+                leftArr += value
+                let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalWidth(CGFloat(value))))
+                item.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 15, trailing: 0)
+                leftGroupItem.append(item)
+            } else {
+                rightArr += value
+                let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalWidth(CGFloat(value))))
+                item.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 15, trailing: 0)
+                rightGroupItem.append(item)
+            }
+        }
+        
+        // Standart Item Creation
         let smallItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(117))
         let bigItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(213))
         
@@ -116,6 +148,7 @@ extension ProfileViewController {
         let bigItemRight = NSCollectionLayoutItem(layoutSize: bigItemSize)
         bigItemRight.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 15, trailing: 0)
         
+        //Standart WaterFall Group
         let leftGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1)), subitems: [smallItemLeft, bigItemLeft])
         leftGroup.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 15)
         
@@ -125,7 +158,18 @@ extension ProfileViewController {
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [leftGroup, rightGroup])
         
-        let section = NSCollectionLayoutSection(group: group)
+        //RANDOM WaterFall Group
+        let mainHeight = leftArr > rightArr ? leftArr : rightArr
+        let groupSizeWaterFall = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let groupSizeWaterFallMain = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(CGFloat(mainHeight) * 0.5 ))
+        let left = NSCollectionLayoutGroup.vertical(layoutSize: groupSizeWaterFall, subitems: leftGroupItem)
+        left.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 15)
+        let right = NSCollectionLayoutGroup.vertical(layoutSize: groupSizeWaterFall, subitems: rightGroupItem)
+        let groupWaterFall = NSCollectionLayoutGroup.horizontal(layoutSize: groupSizeWaterFallMain, subitems: [left, right])
+       
+        //SECTION
+        let section = NSCollectionLayoutSection(group: groupWaterFall)
+      //  let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets.init(top: 24, leading: 20, bottom: 0, trailing: 20)
         return section
     }
