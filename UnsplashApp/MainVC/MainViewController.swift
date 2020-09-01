@@ -137,6 +137,24 @@ extension MainViewController {
 }
 
 extension MainViewController: SegmentedControllProtocol {
+    
+    internal func actionSV(cell: MainVCControlCell, index: Int) {
+        switch index {
+        case 0:
+            cell.popularButton.tintColor = .black
+            cell.newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        case 1:
+            cell.popularButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.newButton.tintColor = .black
+            cell.followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        default:
+            cell.popularButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.followButton.tintColor = .black
+        }
+    }
+    
     internal func buttonAction(cell: MainVCControlCell, tag: Int) {
         if tag == 0 {
             cell.buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2.fill"), for: .normal)
@@ -156,9 +174,5 @@ extension MainViewController: SegmentedControllProtocol {
             collums = 2
             dataSource?.apply(currentSnapshot!)
         }
-    }
-    
-    internal func actionSV(index: Int) {
-        print("Working: \(index)")
     }
 }
