@@ -22,6 +22,9 @@
 		4CF74A8124E7A49200C2C11E /* MainVCImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8024E7A49200C2C11E /* MainVCImageCell.swift */; };
 		4CF74A8324E8113600C2C11E /* MainVCControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8224E8113600C2C11E /* MainVCControlCell.swift */; };
 		4CF74A8724E8EC1200C2C11E /* ProfileCellTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */; };
+		D7BF96ED250B7BA300B45A5D /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF96EB250B7BA300B45A5D /* ImageScrollView.swift */; };
+		D7BF96EE250B7BA300B45A5D /* ScrollImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF96EC250B7BA300B45A5D /* ScrollImageViewController.swift */; };
+		D7BF96F1250B7C2100B45A5D /* autumn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7BF96F0250B7C2000B45A5D /* autumn.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		4CF74A8024E7A49200C2C11E /* MainVCImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCImageCell.swift; sourceTree = "<group>"; };
 		4CF74A8224E8113600C2C11E /* MainVCControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCControlCell.swift; sourceTree = "<group>"; };
 		4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellTop.swift; sourceTree = "<group>"; };
+		D7BF96EB250B7BA300B45A5D /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		D7BF96EC250B7BA300B45A5D /* ScrollImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollImageViewController.swift; sourceTree = "<group>"; };
+		D7BF96F0250B7C2000B45A5D /* autumn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = autumn.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,8 @@
 		4C9D792324E431570043F85F /* UnsplashApp */ = {
 			isa = PBXGroup;
 			children = (
+				D7BF96F0250B7C2000B45A5D /* autumn.jpg */,
+				D7BF96EF250B7BB600B45A5D /* ScrollViewVC */,
 				4C4C3F4624F131AB00BCF0CA /* PhotosInfoVC */,
 				4C4C3F4124EF86E800BCF0CA /* Models */,
 				4CF74A8424E8117500C2C11E /* MainVC */,
@@ -126,6 +134,15 @@
 				4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */,
 			);
 			path = ProfileVC;
+			sourceTree = "<group>";
+		};
+		D7BF96EF250B7BB600B45A5D /* ScrollViewVC */ = {
+			isa = PBXGroup;
+			children = (
+				D7BF96EC250B7BA300B45A5D /* ScrollImageViewController.swift */,
+				D7BF96EB250B7BA300B45A5D /* ImageScrollView.swift */,
+			);
+			path = ScrollViewVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7BF96F1250B7C2100B45A5D /* autumn.jpg in Resources */,
 				4C9D793124E4315D0043F85F /* LaunchScreen.storyboard in Resources */,
 				4C9D792E24E4315D0043F85F /* Assets.xcassets in Resources */,
 			);
@@ -199,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CF74A7D24E794C800C2C11E /* ProfileViewController.swift in Sources */,
+				D7BF96ED250B7BA300B45A5D /* ImageScrollView.swift in Sources */,
 				4C4C3F4824F1320B00BCF0CA /* PhotosInfoViewController.swift in Sources */,
 				4C4C3F4524EF871C00BCF0CA /* MainVCItems.swift in Sources */,
 				4CF74A7F24E794E700C2C11E /* NewPosTViewController.swift in Sources */,
@@ -207,6 +226,7 @@
 				4C4C3F4A24F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift in Sources */,
 				4C4C3F4E24F14BDF00BCF0CA /* MainTabBarController.swift in Sources */,
 				4CF74A8324E8113600C2C11E /* MainVCControlCell.swift in Sources */,
+				D7BF96EE250B7BA300B45A5D /* ScrollImageViewController.swift in Sources */,
 				4C9D792924E431570043F85F /* MainViewController.swift in Sources */,
 				4C9D792524E431570043F85F /* AppDelegate.swift in Sources */,
 				4C4C3F4C24F1336800BCF0CA /* PhotoInfoModel.swift in Sources */,
