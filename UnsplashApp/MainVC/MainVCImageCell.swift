@@ -12,9 +12,10 @@ class MainVCImageCell: UICollectionViewCell {
     
     static let reuseId = "mainCell"
     
- //   private let imageView = UIImageView()
-     let imageView = UIImageView()
+    //   private let imageView = UIImageView()
+    let imageView = UIImageView()
     let label = UILabel()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         label.text = "1"

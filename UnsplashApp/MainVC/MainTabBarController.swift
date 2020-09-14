@@ -12,8 +12,9 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UITabBar.appearance().tintColor = .darkGray
         let mainVC = MainViewController()
+        let mainVCNav = UINavigationController(rootViewController: mainVC)
         
         let newPostVC = PhotosInfoViewController()
         let newPostVCNav = UINavigationController(rootViewController: newPostVC)
@@ -22,9 +23,11 @@ class MainTabBarController: UITabBarController {
         let profileVCNav = UINavigationController(rootViewController: profileVC)
         
         profileVC.tabBarItem.image = UIImage(systemName: "person")
+      
+        
         newPostVC.tabBarItem.image = UIImage(systemName: "plus")
         mainVC.tabBarItem.image = UIImage(systemName: "house")
         
-        viewControllers = [mainVC, newPostVCNav, profileVCNav]
+        viewControllers = [mainVCNav, newPostVCNav, profileVCNav]
     }
 }
