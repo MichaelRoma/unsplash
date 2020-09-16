@@ -25,6 +25,16 @@
 		4CF74A8124E7A49200C2C11E /* MainVCImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8024E7A49200C2C11E /* MainVCImageCell.swift */; };
 		4CF74A8324E8113600C2C11E /* MainVCControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8224E8113600C2C11E /* MainVCControlCell.swift */; };
 		4CF74A8724E8EC1200C2C11E /* ProfileCellTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */; };
+		D7BF97132511EA8700B45A5D /* PanelTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97122511EA8700B45A5D /* PanelTransition.swift */; };
+		D7BF97152511EAAC00B45A5D /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97142511EAAC00B45A5D /* TransitionDriver.swift */; };
+		D7BF97172511EAC500B45A5D /* TransitionDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97162511EAC500B45A5D /* TransitionDirection.swift */; };
+		D7BF971A2511EAEA00B45A5D /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97192511EAEA00B45A5D /* PresentationController.swift */; };
+		D7BF971C2511EAF400B45A5D /* DimmPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF971B2511EAF400B45A5D /* DimmPresentationController.swift */; };
+		D7BF971F2511EB0700B45A5D /* PresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF971E2511EB0700B45A5D /* PresentAnimation.swift */; };
+		D7BF97212511EB1100B45A5D /* DismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97202511EB1100B45A5D /* DismissAnimation.swift */; };
+		D7BF97232511EB5900B45A5D /* CGPoint+Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97222511EB5900B45A5D /* CGPoint+Velocity.swift */; };
+		D7BF97252511EB7700B45A5D /* InstantPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97242511EB7700B45A5D /* InstantPanGestureRecognizer.swift */; };
+		D7BF97282511EBB600B45A5D /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97272511EBB600B45A5D /* ChildViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +59,16 @@
 		4CF74A8024E7A49200C2C11E /* MainVCImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCImageCell.swift; sourceTree = "<group>"; };
 		4CF74A8224E8113600C2C11E /* MainVCControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCControlCell.swift; sourceTree = "<group>"; };
 		4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellTop.swift; sourceTree = "<group>"; };
+		D7BF97122511EA8700B45A5D /* PanelTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelTransition.swift; sourceTree = "<group>"; };
+		D7BF97142511EAAC00B45A5D /* TransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
+		D7BF97162511EAC500B45A5D /* TransitionDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDirection.swift; sourceTree = "<group>"; };
+		D7BF97192511EAEA00B45A5D /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		D7BF971B2511EAF400B45A5D /* DimmPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmPresentationController.swift; sourceTree = "<group>"; };
+		D7BF971E2511EB0700B45A5D /* PresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentAnimation.swift; sourceTree = "<group>"; };
+		D7BF97202511EB1100B45A5D /* DismissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissAnimation.swift; sourceTree = "<group>"; };
+		D7BF97222511EB5900B45A5D /* CGPoint+Velocity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Velocity.swift"; sourceTree = "<group>"; };
+		D7BF97242511EB7700B45A5D /* InstantPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		D7BF97272511EBB600B45A5D /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +121,7 @@
 		4C9D792324E431570043F85F /* UnsplashApp */ = {
 			isa = PBXGroup;
 			children = (
+				D7BF97112511EA6D00B45A5D /* Transition */,
 				4CF0D51F250F32770032F247 /* autumn.jpg */,
 				4CF0D51A250F295A0032F247 /* ScrollViewVC */,
 				4C4C3F4624F131AB00BCF0CA /* PhotosInfoVC */,
@@ -143,6 +164,47 @@
 				4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */,
 			);
 			path = ProfileVC;
+			sourceTree = "<group>";
+		};
+		D7BF97112511EA6D00B45A5D /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				D7BF97262511EBAB00B45A5D /* Controllers */,
+				D7BF971D2511EAFE00B45A5D /* Animations */,
+				D7BF97182511EADF00B45A5D /* Presentation controller */,
+				D7BF97122511EA8700B45A5D /* PanelTransition.swift */,
+				D7BF97142511EAAC00B45A5D /* TransitionDriver.swift */,
+				D7BF97162511EAC500B45A5D /* TransitionDirection.swift */,
+				D7BF97222511EB5900B45A5D /* CGPoint+Velocity.swift */,
+				D7BF97242511EB7700B45A5D /* InstantPanGestureRecognizer.swift */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
+		D7BF97182511EADF00B45A5D /* Presentation controller */ = {
+			isa = PBXGroup;
+			children = (
+				D7BF97192511EAEA00B45A5D /* PresentationController.swift */,
+				D7BF971B2511EAF400B45A5D /* DimmPresentationController.swift */,
+			);
+			path = "Presentation controller";
+			sourceTree = "<group>";
+		};
+		D7BF971D2511EAFE00B45A5D /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				D7BF971E2511EB0700B45A5D /* PresentAnimation.swift */,
+				D7BF97202511EB1100B45A5D /* DismissAnimation.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		D7BF97262511EBAB00B45A5D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D7BF97272511EBB600B45A5D /* ChildViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,18 +280,28 @@
 			files = (
 				4CF74A7D24E794C800C2C11E /* ProfileViewController.swift in Sources */,
 				4CF0D51C250F29810032F247 /* ScrollImageViewController.swift in Sources */,
+				D7BF97172511EAC500B45A5D /* TransitionDirection.swift in Sources */,
 				4C4C3F4824F1320B00BCF0CA /* PhotosInfoViewController.swift in Sources */,
+				D7BF971A2511EAEA00B45A5D /* PresentationController.swift in Sources */,
 				4C4C3F4524EF871C00BCF0CA /* MainVCItems.swift in Sources */,
+				D7BF97232511EB5900B45A5D /* CGPoint+Velocity.swift in Sources */,
 				4CF74A7F24E794E700C2C11E /* NewPosTViewController.swift in Sources */,
 				4CF74A8124E7A49200C2C11E /* MainVCImageCell.swift in Sources */,
 				4CF74A8724E8EC1200C2C11E /* ProfileCellTop.swift in Sources */,
 				4C4C3F4A24F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift in Sources */,
 				4C4C3F4E24F14BDF00BCF0CA /* MainTabBarController.swift in Sources */,
 				4CF74A8324E8113600C2C11E /* MainVCControlCell.swift in Sources */,
+				D7BF971C2511EAF400B45A5D /* DimmPresentationController.swift in Sources */,
+				D7BF97212511EB1100B45A5D /* DismissAnimation.swift in Sources */,
+				D7BF971F2511EB0700B45A5D /* PresentAnimation.swift in Sources */,
+				D7BF97282511EBB600B45A5D /* ChildViewController.swift in Sources */,
 				4C9D792924E431570043F85F /* MainViewController.swift in Sources */,
+				D7BF97252511EB7700B45A5D /* InstantPanGestureRecognizer.swift in Sources */,
+				D7BF97132511EA8700B45A5D /* PanelTransition.swift in Sources */,
 				4C9D792524E431570043F85F /* AppDelegate.swift in Sources */,
 				4CF0D51E250F29920032F247 /* ImageScrollView.swift in Sources */,
 				4C4C3F4C24F1336800BCF0CA /* PhotoInfoModel.swift in Sources */,
+				D7BF97152511EAAC00B45A5D /* TransitionDriver.swift in Sources */,
 				4C4C3F4324EF86FE00BCF0CA /* MainVCSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,7 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4C3GNH695T;
+				DEVELOPMENT_TEAM = Z5K5J5HEG4;
 				INFOPLIST_FILE = UnsplashApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -36,6 +36,8 @@ class MainViewController: UIViewController {
         view.backgroundColor = .green
         createCollectionView()
         collectionView.delegate = self
+
+        
     }
 }
 
