@@ -16,11 +16,11 @@ class PresentationController: UIPresentationController {
 
     override var frameOfPresentedViewInContainerView: CGRect {
         let bounds = containerView!.bounds
-        let halfHeight = bounds.height / 5
+        let halfHeight = bounds.height / 2
         return CGRect(x: 0,
                       y: halfHeight,
                       width: bounds.width,
-                      height: bounds.height )
+                      height: halfHeight )
     }
 
     override func presentationTransitionWillBegin() {

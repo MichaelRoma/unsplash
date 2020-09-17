@@ -145,17 +145,17 @@ class ScrollImageViewController: UIViewController {
         transition.subtype = .fromTop
         detailView.layer.add(transition, forKey: kCATransition)
 
-        // Создание Кнопки
-        let closeButton = UIButton()
-        closeButton.addTarget(self, action: #selector(closeInfoView), for:.touchUpInside)
-        closeButton.setTitle("Close", for: .normal)
-        closeButton.setTitleColor(.black, for: .normal)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        detailView.addSubview(closeButton)
-        NSLayoutConstraint.activate([
-            closeButton.leadingAnchor.constraint(equalTo: detailView.leadingAnchor),
-            closeButton.topAnchor.constraint(equalTo: detailView.topAnchor, constant: 10)
-        ])
+//        // Создание Кнопки
+//        let closeButton = UIButton()
+//        closeButton.addTarget(self, action: #selector(closeInfoView), for:.touchUpInside)
+//        closeButton.setTitle("Close", for: .normal)
+//        closeButton.setTitleColor(.black, for: .normal)
+//        closeButton.translatesAutoresizingMaskIntoConstraints = false
+//        detailView.addSubview(closeButton)
+//        NSLayoutConstraint.activate([
+//            closeButton.leadingAnchor.constraint(equalTo: detailView.leadingAnchor),
+//            closeButton.topAnchor.constraint(equalTo: detailView.topAnchor, constant: 10)
+//        ])
 
     }
 
