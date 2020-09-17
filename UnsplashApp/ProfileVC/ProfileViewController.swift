@@ -31,7 +31,10 @@ class ProfileViewController: UIViewController {
     let rateArr = [1,1.2,1.5,0.5,0.9,0.5,1,1,1.3,1.3,1.2, 0.5]
     
     var dataSource: UICollectionViewDiffableDataSource<MainVCSection, MainVCItems>?
+    var currentSnapshot: NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>?
     var collectionView: UICollectionView!
+    
+    private var collums = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,14 +77,14 @@ extension ProfileViewController {
     }
     
     private func reloadData() {
-        var snapshot = NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>()
-        snapshot.appendSections(sections)
+        currentSnapshot = NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>()
+        currentSnapshot?.appendSections(sections)
         
         for section in sections {
-            snapshot.appendItems(section.items, toSection: section)
+            currentSnapshot?.appendItems(section.items, toSection: section)
         }
         
-        dataSource?.apply(snapshot)
+        dataSource?.apply(currentSnapshot!)
     }
     
     private func createCompositionLayout() -> UICollectionViewLayout {
@@ -110,6 +113,7 @@ extension ProfileViewController {
     }
     
     private func createwaterfallSection() -> NSCollectionLayoutSection {
+        if collums == 2 {
         // Random Item Creation
         var leftArr = 0.0
         var rightArr = 0.0
@@ -171,7 +175,20 @@ extension ProfileViewController {
         let section = NSCollectionLayoutSection(group: groupWaterFall)
       //  let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets.init(top: 24, leading: 20, bottom: 0, trailing: 20)
-        return section
+            return section } else {
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+                   let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                   item.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 13, trailing: 0)
+                   
+                   let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(166))
+                   let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: collums)
+                   group.interItemSpacing = .fixed(CGFloat(7))
+                   
+                   let section = NSCollectionLayoutSection(group: group)
+                   section.contentInsets = NSDirectionalEdgeInsets.init(top: 10, leading: 20, bottom: 0, trailing: 20)
+                   
+                   return section
+        }
     }
 }
 
@@ -183,14 +200,20 @@ extension ProfileViewController: ActionManagerForProfileCellTop {
             cell.photosButton.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
             cell.likesButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
             cell.collectionsButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+            collums = 2
+            dataSource?.apply(currentSnapshot!)
         case 1:
             cell.photosButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
             cell.likesButton.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
             cell.collectionsButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
+            collums = 1
+            dataSource?.apply(currentSnapshot!)
         default:
             cell.photosButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
             cell.likesButton.tintColor = UIColor(red: 206/255, green: 206/255, blue: 206/255, alpha: 1)
             cell.collectionsButton.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            collums = 1
+            dataSource?.apply(currentSnapshot!)
         }
     }
 }

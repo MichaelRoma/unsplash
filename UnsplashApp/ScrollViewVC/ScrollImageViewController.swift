@@ -35,6 +35,7 @@ class ScrollImageViewController: UIViewController {
         setupNavigationController()
         
         setupButtomConstraints()
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillLayoutSubviews() {
@@ -44,6 +45,9 @@ class ScrollImageViewController: UIViewController {
     }
     
     @objc func back(sender: UIBarButtonItem) {
+        tabBarController?.tabBar.isHidden = false
+        navigationController?.navigationBar.barTintColor = .none
+        navigationController?.navigationBar.tintColor = .none
         self.navigationController?.popViewController(animated:true)
     }
     
