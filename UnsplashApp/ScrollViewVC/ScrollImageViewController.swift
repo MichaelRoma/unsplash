@@ -9,6 +9,8 @@
 import UIKit
 
 class ScrollImageViewController: UIViewController {
+
+    private let transition = PanelTransition()
     
     let saveButtom = UIButton()
     let collectionButtom = UIButton()
@@ -18,10 +20,17 @@ class ScrollImageViewController: UIViewController {
     
     var imageScrollView: ImageScrollView!
     var currentImage = UIImage()
+
+    let detailView = UIView()
+    var isDeteilViewPresented: Bool = false
     
+
+
+    //MARK: - Жизненный цикл VC
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         imageScrollView = ImageScrollView(frame: view.bounds)
         view.addSubview(imageScrollView)
         setupImageScrollView()
@@ -31,10 +40,11 @@ class ScrollImageViewController: UIViewController {
         self.imageScrollView.set(image: currentImage)
         
         self.view.backgroundColor = .black
-        
+        self.tabBarController?.tabBar.isHidden = true
+
         setupNavigationController()
-        
         setupButtomConstraints()
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -42,17 +52,10 @@ class ScrollImageViewController: UIViewController {
         
         setupButtomView()
     }
-    
-    @objc func back(sender: UIBarButtonItem) {
-        self.navigationController?.popViewController(animated:true)
-    }
-    
-    @objc func share(sender: UIBarButtonItem) {
-        
-        let shareController = UIActivityViewController(activityItems: [currentImage], applicationActivities: nil)
-        present(shareController, animated: true, completion: nil)
-    }
-    
+
+
+    //MARK: - Настройка NavigationController
+
     private func setupNavigationController() {
         
         navigationController?.navigationBar.barTintColor = .black
@@ -68,9 +71,10 @@ class ScrollImageViewController: UIViewController {
         self.title = "MorozPavel"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
+
+    //MARK: - Настройка ImageScrollView
     
-    
-    func setupImageScrollView() {
+    private func setupImageScrollView() {
         
         imageScrollView.translatesAutoresizingMaskIntoConstraints = false
         imageScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -79,42 +83,16 @@ class ScrollImageViewController: UIViewController {
         imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     }
     
-    
-    func setupButtomView() {
-        
-        saveButtom.layer.cornerRadius = saveButtom.frame.size.width/2
-        saveButtom.clipsToBounds = true
-        saveButtom.backgroundColor = .white
-        saveButtom.tintColor = .black
-        saveButtom.setImage(UIImage(systemName: "square.and.arrow.down"), for: .normal)
-        
-        collectionButtom.layer.cornerRadius = collectionButtom.frame.size.width/2
-        collectionButtom.clipsToBounds = true
-        collectionButtom.backgroundColor = #colorLiteral(red: 0.1307591796, green: 0.1299891472, blue: 0.1313557923, alpha: 1)
-        collectionButtom.tintColor = .white
-        collectionButtom.setImage(UIImage(systemName: "plus.rectangle.on.rectangle"), for: .normal)
-        
-        likeButtom.layer.cornerRadius = likeButtom.frame.size.width/2
-        likeButtom.clipsToBounds = true
-        likeButtom.backgroundColor = #colorLiteral(red: 0.1307591796, green: 0.1299891472, blue: 0.1313557923, alpha: 1)
-        likeButtom.tintColor = .white
-        likeButtom.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        
-        imageProfile.layer.cornerRadius = imageProfile.frame.size.width/2
-        imageProfile.clipsToBounds = true
-        imageProfile.backgroundColor = .red
-        //imageProfile.image = UIImage()
-        let imageProfileTap = UITapGestureRecognizer(target: self, action: #selector(self.profileTapped(_:)))
-        imageProfile.addGestureRecognizer(imageProfileTap)
-        imageProfile.isUserInteractionEnabled = true
-        
-        infoImage.layer.cornerRadius = infoImage.frame.size.width/2
-        infoImage.clipsToBounds = true
-        infoImage.image = UIImage(systemName: "info.circle")
-        infoImage.tintColor = .white
-        let infoImageTap = UITapGestureRecognizer(target: self, action: #selector(self.infoViewTapped(_:)))
-        infoImage.addGestureRecognizer(infoImageTap)
-        infoImage.isUserInteractionEnabled = true
+//MARK: - Методы кнопок
+
+    @objc func back(sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated:true)
+    }
+
+    @objc func share(sender: UIBarButtonItem) {
+
+        let shareController = UIActivityViewController(activityItems: [currentImage], applicationActivities: nil)
+        present(shareController, animated: true, completion: nil)
     }
     
     @objc func profileTapped(_ recognizer: UIGestureRecognizer) {
@@ -123,23 +101,118 @@ class ScrollImageViewController: UIViewController {
     }
     
     @objc func infoViewTapped(_ recognizer: UIGestureRecognizer) {
-        let profileVC = ProfileViewController()
-        self.navigationController?.pushViewController(profileVC, animated: true)
+
+//        detailView.isHidden = false
+//        isDeteilViewPresented = true
+//        setupDetailView()
+//        setupButtomConstraints()
+
+        let child = ChildViewController()
+        child.transitioningDelegate = transition
+        child.modalPresentationStyle = .custom
+        present(child, animated: true)
     }
-    
-    func setupButtomConstraints() {
+
+
+
+
+    @objc func closeInfoView() {
+
+        detailView.isHidden = true
+
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .push
+        transition.subtype = .fromBottom
+
+        detailView.layer.add(transition, forKey: kCATransition)
+    }
+
+    //MARK: - Настройка Инфо Вью
+
+    private func setupDetailView() {
+
+        // Размещение View
+        detailView.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200)
+        detailView.backgroundColor = UIColor.white
+
+        // Создание Анимации
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .push
+        transition.subtype = .fromTop
+        detailView.layer.add(transition, forKey: kCATransition)
+
+//        // Создание Кнопки
+//        let closeButton = UIButton()
+//        closeButton.addTarget(self, action: #selector(closeInfoView), for:.touchUpInside)
+//        closeButton.setTitle("Close", for: .normal)
+//        closeButton.setTitleColor(.black, for: .normal)
+//        closeButton.translatesAutoresizingMaskIntoConstraints = false
+//        detailView.addSubview(closeButton)
+//        NSLayoutConstraint.activate([
+//            closeButton.leadingAnchor.constraint(equalTo: detailView.leadingAnchor),
+//            closeButton.topAnchor.constraint(equalTo: detailView.topAnchor, constant: 10)
+//        ])
+
+    }
+
+    //MARK: - Настройка Кнопок
+    private func setupButtomView() {
+
+        saveButtom.layer.cornerRadius = saveButtom.frame.size.width/2
+        saveButtom.clipsToBounds = true
+        saveButtom.backgroundColor = .white
+        saveButtom.tintColor = .black
+        saveButtom.setImage(UIImage(systemName: "square.and.arrow.down"), for: .normal)
+
+        collectionButtom.layer.cornerRadius = collectionButtom.frame.size.width/2
+        collectionButtom.clipsToBounds = true
+        collectionButtom.backgroundColor = #colorLiteral(red: 0.1307591796, green: 0.1299891472, blue: 0.1313557923, alpha: 1)
+        collectionButtom.tintColor = .white
+        collectionButtom.setImage(UIImage(systemName: "plus.rectangle.on.rectangle"), for: .normal)
+
+        likeButtom.layer.cornerRadius = likeButtom.frame.size.width/2
+        likeButtom.clipsToBounds = true
+        likeButtom.backgroundColor = #colorLiteral(red: 0.1307591796, green: 0.1299891472, blue: 0.1313557923, alpha: 1)
+        likeButtom.tintColor = .white
+        likeButtom.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+
+        imageProfile.layer.cornerRadius = imageProfile.frame.size.width/2
+        imageProfile.clipsToBounds = true
+        imageProfile.backgroundColor = .red
+        //imageProfile.image = UIImage()
+        let imageProfileTap = UITapGestureRecognizer(target: self, action: #selector(self.profileTapped(_:)))
+        imageProfile.addGestureRecognizer(imageProfileTap)
+        imageProfile.isUserInteractionEnabled = true
+
+        infoImage.layer.cornerRadius = infoImage.frame.size.width/2
+        infoImage.clipsToBounds = true
+        infoImage.image = UIImage(systemName: "info.circle")
+        infoImage.tintColor = .white
+        let infoImageTap = UITapGestureRecognizer(target: self, action: #selector(self.infoViewTapped(_:)))
+        infoImage.addGestureRecognizer(infoImageTap)
+        infoImage.isUserInteractionEnabled = true
+
+    }
+
+    private func setupButtomConstraints() {
         view.addSubview(saveButtom)
         view.addSubview(collectionButtom)
         view.addSubview(likeButtom)
         view.addSubview(imageProfile)
         view.addSubview(infoImage)
-        
+        view.addSubview(detailView)
+
         saveButtom.translatesAutoresizingMaskIntoConstraints = false
         collectionButtom.translatesAutoresizingMaskIntoConstraints = false
         likeButtom.translatesAutoresizingMaskIntoConstraints = false
         imageProfile.translatesAutoresizingMaskIntoConstraints = false
         infoImage.translatesAutoresizingMaskIntoConstraints = false
-        
+        detailView.translatesAutoresizingMaskIntoConstraints = false
+
         let radius: CGFloat = 50
         
         NSLayoutConstraint.activate([
@@ -177,6 +250,16 @@ class ScrollImageViewController: UIViewController {
             infoImage.heightAnchor.constraint(equalToConstant: 30),
             infoImage.widthAnchor.constraint(equalToConstant: 30)
         ])
+
+        if isDeteilViewPresented {
+            NSLayoutConstraint.activate([
+                detailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                detailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                detailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                detailView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+                detailView.heightAnchor.constraint(equalToConstant: 200)
+            ])
+        }
+
     }
 }
-
