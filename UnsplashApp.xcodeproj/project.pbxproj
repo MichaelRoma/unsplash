@@ -25,6 +25,15 @@
 		4CF74A8124E7A49200C2C11E /* MainVCImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8024E7A49200C2C11E /* MainVCImageCell.swift */; };
 		4CF74A8324E8113600C2C11E /* MainVCControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8224E8113600C2C11E /* MainVCControlCell.swift */; };
 		4CF74A8724E8EC1200C2C11E /* ProfileCellTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */; };
+		D757C57A251D30AE003DB69C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C579251D30AE003DB69C /* LoginViewController.swift */; };
+		D757C57E251D3357003DB69C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C57D251D3357003DB69C /* NetworkManager.swift */; };
+		D757C583251D338E003DB69C /* UnsplashAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C582251D338E003DB69C /* UnsplashAuthManager.swift */; };
+		D757C586251D3398003DB69C /* UnsplashAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C585251D3398003DB69C /* UnsplashAccessToken.swift */; };
+		D757C589251D33A2003DB69C /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C588251D33A2003DB69C /* RequestBuilder.swift */; };
+		D757C58D251D33BF003DB69C /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C58C251D33BF003DB69C /* ResponseSerializer.swift */; };
+		D757C592251D3434003DB69C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C591251D3434003DB69C /* Configuration.swift */; };
+		D757C596251D3446003DB69C /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C595251D3446003DB69C /* Scope.swift */; };
+		D757C599251D344F003DB69C /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C598251D344F003DB69C /* Utility.swift */; };
 		D7BF97132511EA8700B45A5D /* PanelTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97122511EA8700B45A5D /* PanelTransition.swift */; };
 		D7BF97152511EAAC00B45A5D /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97142511EAAC00B45A5D /* TransitionDriver.swift */; };
 		D7BF97172511EAC500B45A5D /* TransitionDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97162511EAC500B45A5D /* TransitionDirection.swift */; };
@@ -59,6 +68,15 @@
 		4CF74A8024E7A49200C2C11E /* MainVCImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCImageCell.swift; sourceTree = "<group>"; };
 		4CF74A8224E8113600C2C11E /* MainVCControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCControlCell.swift; sourceTree = "<group>"; };
 		4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellTop.swift; sourceTree = "<group>"; };
+		D757C579251D30AE003DB69C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D757C57D251D3357003DB69C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		D757C582251D338E003DB69C /* UnsplashAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAuthManager.swift; sourceTree = "<group>"; };
+		D757C585251D3398003DB69C /* UnsplashAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAccessToken.swift; sourceTree = "<group>"; };
+		D757C588251D33A2003DB69C /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		D757C58C251D33BF003DB69C /* ResponseSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSerializer.swift; sourceTree = "<group>"; };
+		D757C591251D3434003DB69C /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		D757C595251D3446003DB69C /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
+		D757C598251D344F003DB69C /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		D7BF97122511EA8700B45A5D /* PanelTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelTransition.swift; sourceTree = "<group>"; };
 		D7BF97142511EAAC00B45A5D /* TransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
 		D7BF97162511EAC500B45A5D /* TransitionDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDirection.swift; sourceTree = "<group>"; };
@@ -121,6 +139,9 @@
 		4C9D792324E431570043F85F /* UnsplashApp */ = {
 			isa = PBXGroup;
 			children = (
+				D757C590251D3411003DB69C /* Services */,
+				D757C580251D335F003DB69C /* NetworkManager */,
+				D757C578251D3075003DB69C /* LoginVC */,
 				D7BF97112511EA6D00B45A5D /* Transition */,
 				4CF0D51F250F32770032F247 /* autumn.jpg */,
 				4CF0D51A250F295A0032F247 /* ScrollViewVC */,
@@ -164,6 +185,44 @@
 				4CF74A8624E8EC1200C2C11E /* ProfileCellTop.swift */,
 			);
 			path = ProfileVC;
+			sourceTree = "<group>";
+		};
+		D757C578251D3075003DB69C /* LoginVC */ = {
+			isa = PBXGroup;
+			children = (
+				D757C579251D30AE003DB69C /* LoginViewController.swift */,
+			);
+			path = LoginVC;
+			sourceTree = "<group>";
+		};
+		D757C580251D335F003DB69C /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				D757C58B251D33B5003DB69C /* Responce */,
+				D757C57D251D3357003DB69C /* NetworkManager.swift */,
+				D757C582251D338E003DB69C /* UnsplashAuthManager.swift */,
+				D757C585251D3398003DB69C /* UnsplashAccessToken.swift */,
+				D757C588251D33A2003DB69C /* RequestBuilder.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		D757C58B251D33B5003DB69C /* Responce */ = {
+			isa = PBXGroup;
+			children = (
+				D757C58C251D33BF003DB69C /* ResponseSerializer.swift */,
+			);
+			name = Responce;
+			sourceTree = "<group>";
+		};
+		D757C590251D3411003DB69C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D757C591251D3434003DB69C /* Configuration.swift */,
+				D757C595251D3446003DB69C /* Scope.swift */,
+				D757C598251D344F003DB69C /* Utility.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		D7BF97112511EA6D00B45A5D /* Transition */ = {
@@ -278,19 +337,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D757C57E251D3357003DB69C /* NetworkManager.swift in Sources */,
+				D757C58D251D33BF003DB69C /* ResponseSerializer.swift in Sources */,
 				4CF74A7D24E794C800C2C11E /* ProfileViewController.swift in Sources */,
 				4CF0D51C250F29810032F247 /* ScrollImageViewController.swift in Sources */,
+				D757C583251D338E003DB69C /* UnsplashAuthManager.swift in Sources */,
 				D7BF97172511EAC500B45A5D /* TransitionDirection.swift in Sources */,
+				D757C592251D3434003DB69C /* Configuration.swift in Sources */,
 				4C4C3F4824F1320B00BCF0CA /* PhotosInfoViewController.swift in Sources */,
 				D7BF971A2511EAEA00B45A5D /* PresentationController.swift in Sources */,
 				4C4C3F4524EF871C00BCF0CA /* MainVCItems.swift in Sources */,
+				D757C586251D3398003DB69C /* UnsplashAccessToken.swift in Sources */,
 				D7BF97232511EB5900B45A5D /* CGPoint+Velocity.swift in Sources */,
 				4CF74A7F24E794E700C2C11E /* NewPosTViewController.swift in Sources */,
 				4CF74A8124E7A49200C2C11E /* MainVCImageCell.swift in Sources */,
 				4CF74A8724E8EC1200C2C11E /* ProfileCellTop.swift in Sources */,
 				4C4C3F4A24F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift in Sources */,
+				D757C599251D344F003DB69C /* Utility.swift in Sources */,
 				4C4C3F4E24F14BDF00BCF0CA /* MainTabBarController.swift in Sources */,
+				D757C589251D33A2003DB69C /* RequestBuilder.swift in Sources */,
 				4CF74A8324E8113600C2C11E /* MainVCControlCell.swift in Sources */,
+				D757C596251D3446003DB69C /* Scope.swift in Sources */,
 				D7BF971C2511EAF400B45A5D /* DimmPresentationController.swift in Sources */,
 				D7BF97212511EB1100B45A5D /* DismissAnimation.swift in Sources */,
 				D7BF971F2511EB0700B45A5D /* PresentAnimation.swift in Sources */,
@@ -302,6 +369,7 @@
 				4CF0D51E250F29920032F247 /* ImageScrollView.swift in Sources */,
 				4C4C3F4C24F1336800BCF0CA /* PhotoInfoModel.swift in Sources */,
 				D7BF97152511EAAC00B45A5D /* TransitionDriver.swift in Sources */,
+				D757C57A251D30AE003DB69C /* LoginViewController.swift in Sources */,
 				4C4C3F4324EF86FE00BCF0CA /* MainVCSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

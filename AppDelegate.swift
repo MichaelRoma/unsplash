@@ -14,10 +14,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let tabBarVC = MainTabBarController()
-        window?.rootViewController = tabBarVC
+//        let tabBarVC = MainTabBarController()
+//        window?.rootViewController = tabBarVC
+
+        NetworkManager.sharedManager.setUpWithAppId(appId: Configuration.UnsplashSettings.clientID, secret: Configuration.UnsplashSettings.clientSecret)
+
+        window?.rootViewController = LoginViewController()
         return true
     }
+
 }

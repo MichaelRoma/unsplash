@@ -37,7 +37,6 @@ class MainViewController: UIViewController {
         createCollectionView()
         collectionView.delegate = self
 
-        
     }
 }
 
