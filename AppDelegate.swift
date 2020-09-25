@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 //        let tabBarVC = MainTabBarController()
@@ -22,7 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         NetworkManager.sharedManager.setUpWithAppId(appId: Configuration.UnsplashSettings.clientID, secret: Configuration.UnsplashSettings.clientSecret)
 
-        window?.rootViewController = LoginViewController()
+        if UserDefaults.standard.isLoggedIn() {
+
+            window?.rootViewController = MainTabBarController()
+        } else {
+
+            window?.rootViewController = LoginViewController()
+        }
         return true
     }
 

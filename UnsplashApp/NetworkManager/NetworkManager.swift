@@ -19,6 +19,9 @@ class NetworkManager {
            UnsplashAuthManager.sharedAuthManager.authorizeFromController(controller: controller, completion: { token, error in
                if let accessToken = token {
                    self.unsplashToken = accessToken
+
+                UserDefaults.standard.setLoggedIn(value: true)
+                UserDefaults.standard.setUserToken(value: String(describing: accessToken.accessToken))
                 
                    print("######   \(String(describing: accessToken.accessToken))          ####")
                    completion(true, nil)

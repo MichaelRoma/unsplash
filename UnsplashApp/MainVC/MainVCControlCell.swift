@@ -22,7 +22,8 @@ class MainVCControlCell: UICollectionViewCell {
     let popularButton = UIButton(type: .system)
     let newButton = UIButton(type: .system)
     let followButton = UIButton(type: .system)
-    
+
+    weak var refreshDelegate: MainViewControllerUpdateDataDelegate?
     
     static let reuseId = "mainControlCell"
     
@@ -49,6 +50,20 @@ class MainVCControlCell: UICollectionViewCell {
     
     @objc private func filterButtonPressed(_ sender: UIButton) {
         delegat?.actionSV(cell: self, index: sender.tag)
+        switch sender.tag {
+        case 0:
+            UserDefaults.standard.setOrderRequest(value: Order.latest.rawValue)
+        case 1:
+            UserDefaults.standard.setOrderRequest(value: Order.oldest.rawValue)
+        case 2:
+            UserDefaults.standard.setOrderRequest(value: Order.popular.rawValue)
+
+        default:
+            UserDefaults.standard.setOrderRequest(value: Order.latest.rawValue)
+        }
+
+        refreshDelegate?.refreshData()
+
     }
 }
 
@@ -124,9 +139,9 @@ extension MainVCControlCell {
     }
     
     private func buttonCreation() {
-        popularButton.setTitle("Popular", for: .normal)
-        newButton.setTitle("New", for: .normal)
-        followButton.setTitle("Follow", for: .normal)
+        popularButton.setTitle("Latest", for: .normal)
+        newButton.setTitle("Oldest", for: .normal)
+        followButton.setTitle("Popular", for: .normal)
         
         popularButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
         newButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
@@ -135,6 +150,26 @@ extension MainVCControlCell {
         popularButton.tintColor = .black
         newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
         followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+
+        if UserDefaults.standard.getOrderRequest() == Order.latest.rawValue {
+            popularButton.tintColor = .black
+            newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        } else if UserDefaults.standard.getOrderRequest() == Order.oldest.rawValue {
+
+            popularButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            newButton.tintColor = .black
+            followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        } else if UserDefaults.standard.getOrderRequest() == Order.popular.rawValue {
+
+            popularButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            followButton.tintColor = .black
+        } else {
+            popularButton.tintColor = .black
+            newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        }
         
         popularButton.tag = 0
         newButton.tag = 1

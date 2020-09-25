@@ -8,35 +8,99 @@
 
 import UIKit
 
+protocol MainViewControllerUpdateDataDelegate: class {
+    func refreshData()
+}
+
+
 class MainViewController: UIViewController {
     
-    let sections: [MainVCSection] = [MainVCSection(type: "first", id: 0, items: [
-        MainVCItems(imagePath: "")]),
-                                     MainVCSection(type: "second", id: 1, items: [
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: ""),
-                                        MainVCItems(imagePath: "")
-                                     ])]
-    
+    var sections: [MainVCSection] = []
+
     var dataSource: UICollectionViewDiffableDataSource<MainVCSection, MainVCItems>?
     var currentSnapshot: NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>?
+
+    var networkDataFetcher = NetworkDataFetcher()
     
     var collectionView: UICollectionView!
     private var collums = 1
+
+    private var timer: Timer?
+    var photos = [UnsplashPhoto]()
+    private var selectedImages = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
+
         createCollectionView()
         collectionView.delegate = self
 
+        setupSearchBar()
+    }
+
+    private func createMainVCItems() -> [MainVCItems] {
+
+        var mainVCItems: [MainVCItems] = []
+
+        for _ in 0...photos.count {
+
+            mainVCItems.append(MainVCItems(imagePath: ""))
+        }
+
+        return mainVCItems
+    }
+
+    private func setupSearchBar() {
+        let seacrhController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = seacrhController
+        seacrhController.hidesNavigationBarDuringPresentation = false
+        seacrhController.obscuresBackgroundDuringPresentation = false
+        seacrhController.searchBar.delegate = self
+    }
+
+    func refresh() {
+        self.selectedImages.removeAll()
+        self.collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
+    }
+}
+
+extension MainViewController: MainViewControllerUpdateDataDelegate {
+
+    func refreshData() {
+
+        let search = navigationItem.searchController?.searchBar.text ?? ""
+        //print(search)
+
+        self.networkDataFetcher.fetchImages(searchTerm: search) { [weak self] (searchResults) in
+            guard let fetchedPhotos = searchResults else { return }
+            self?.photos = fetchedPhotos.results
+            self?.createCollectionView()
+            self?.collectionView.reloadData()
+            self?.refresh()
+
+        }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension MainViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //print(navigationItem.searchController?.title)
+
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResults) in
+                guard let fetchedPhotos = searchResults else { return }
+                self?.photos = fetchedPhotos.results
+                self?.createCollectionView()
+                self?.collectionView.reloadData()
+                self?.refresh()
+
+            }
+        })
     }
 }
 
@@ -50,9 +114,12 @@ extension MainViewController {
         collectionView.backgroundColor = .white
         
         collectionView.register(MainVCImageCell.self, forCellWithReuseIdentifier: MainVCImageCell.reuseId)
-        
         collectionView.register(MainVCControlCell.self, forCellWithReuseIdentifier: MainVCControlCell.reuseId)
-        
+
+
+        sections = [MainVCSection(type: "first", id: 0, items:[MainVCItems(imagePath: "")]),
+           MainVCSection(type: "second", id: 1, items: createMainVCItems())]
+
         view.addSubview(collectionView)
         createDataSource()
         reloadData()
@@ -64,9 +131,19 @@ extension MainViewController {
             case "first":
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCControlCell.reuseId, for: indexPath) as! MainVCControlCell
                 cell.delegat = self
+                cell.refreshDelegate = self
                 return cell
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCImageCell.reuseId, for: indexPath) as! MainVCImageCell
+
+                // тут вставляем ссылку на картинки
+
+                if self.photos.count - 1 > indexPath.item  {
+
+                cell.configurator(with: self.photos[indexPath.item].urls["regular"] ?? "")
+
+                }
+
                 return cell
             }
         })

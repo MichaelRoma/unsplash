@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MainVCImageCell: UICollectionViewCell {
     
@@ -18,11 +19,11 @@ class MainVCImageCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        label.text = "1"
+        //label.text = "1"
         imageView.backgroundColor = .gray
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         
         addSubview(imageView)
         addSubview(label)
@@ -49,7 +50,25 @@ class MainVCImageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configurator(with image: UIImage) {
-        self.imageView.image = image
+    func configurator(with url: String) {
+
+        imageView.sd_setImage(with: URL(string: url))
+    }
+
+    let photoImageView: UIImageView = {
+       let imageView = UIImageView()
+       imageView.translatesAutoresizingMaskIntoConstraints = false
+       imageView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+       imageView.contentMode = .scaleAspectFill
+       return imageView
+   }()
+    
+    var unsplashPhoto: UnsplashPhoto! {
+        didSet {
+            let photoUrl = unsplashPhoto.urls["regular"]
+            guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
+            photoImageView.sd_setImage(with: url, completed: nil)
+            
+        }
     }
 }

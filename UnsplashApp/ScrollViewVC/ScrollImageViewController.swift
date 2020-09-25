@@ -127,6 +127,11 @@ class ScrollImageViewController: UIViewController {
         
         detailView.layer.add(transition, forKey: kCATransition)
     }
+
+    @objc func likeButtomTapped() {
+        
+        print(#function)
+    }
     
     //MARK: - Настройка Инфо Вью
     
@@ -143,19 +148,7 @@ class ScrollImageViewController: UIViewController {
         transition.type = .push
         transition.subtype = .fromTop
         detailView.layer.add(transition, forKey: kCATransition)
-        
-        //        // Создание Кнопки
-        //        let closeButton = UIButton()
-        //        closeButton.addTarget(self, action: #selector(closeInfoView), for:.touchUpInside)
-        //        closeButton.setTitle("Close", for: .normal)
-        //        closeButton.setTitleColor(.black, for: .normal)
-        //        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        //        detailView.addSubview(closeButton)
-        //        NSLayoutConstraint.activate([
-        //            closeButton.leadingAnchor.constraint(equalTo: detailView.leadingAnchor),
-        //            closeButton.topAnchor.constraint(equalTo: detailView.topAnchor, constant: 10)
-        //        ])
-        
+
     }
     
     //MARK: - Настройка Кнопок
@@ -178,6 +171,7 @@ class ScrollImageViewController: UIViewController {
         likeButtom.backgroundColor = #colorLiteral(red: 0.1307591796, green: 0.1299891472, blue: 0.1313557923, alpha: 1)
         likeButtom.tintColor = .white
         likeButtom.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        likeButtom.addTarget(self, action: #selector(likeButtomTapped), for: .touchUpInside)
         
         imageProfile.layer.cornerRadius = imageProfile.frame.size.width/2
         imageProfile.clipsToBounds = true
