@@ -37,6 +37,52 @@ class MainViewController: UIViewController {
         collectionView.delegate = self
 
         setupSearchBar()
+
+        
+        networkDataFetcher.getListTopics { [weak self] (searchResults) in
+            guard let fetchedTopics = searchResults else { return }
+
+            fetchedTopics.map { (fetchedTopic)  in
+
+                guard let title = fetchedTopic.title else { return }
+                print( fetchedTopic.slug)
+                if title == "History" {
+                    //print( fetchedTopic.id)
+                    //print(fetchedTopic.slug)
+                    guard let id = fetchedTopic.id else { return }
+                    let slug = fetchedTopic.slug ?? ""
+                    //id_or_slug
+                    let idTopics = "\(id)" + "_" + "or" + "_" + "\(slug)"
+
+//                        self?.networkDataFetcher.getImagesFromTopics(idTopics: id) { [weak self] (searchResults) in
+//
+//                            guard let fetchedImages = searchResults else { return }
+//
+//                            print(fetchedImages)
+//    //                        fetchedImages.map { (fetchedImegas.)  in
+//    //                            print(fetchedImegas.)
+//    //                        }
+//
+//                        }
+                }
+
+                //print(fetchedTopics.title ?? "")
+            }
+
+        }
+
+        self.networkDataFetcher.getImagesFromTopics(idTopics: "xHxYTMHLgOc") { [weak self] (searchResults) in
+
+            guard let fetchedImages = searchResults else { return }
+
+            print(fetchedImages)
+//                        fetchedImages.map { (fetchedImegas.)  in
+//                            print(fetchedImegas.)
+//                        }
+
+        }
+
+
     }
 
     private func createMainVCItems() -> [MainVCItems] {
@@ -72,7 +118,7 @@ extension MainViewController: MainViewControllerUpdateDataDelegate {
         let search = navigationItem.searchController?.searchBar.text ?? ""
         //print(search)
 
-        self.networkDataFetcher.fetchImages(searchTerm: search) { [weak self] (searchResults) in
+        self.networkDataFetcher.fetchImages( searchType: .photos(searchTerm: search)) { [weak self] (searchResults) in
             guard let fetchedPhotos = searchResults else { return }
             self?.photos = fetchedPhotos.results
             self?.createCollectionView()
@@ -92,7 +138,7 @@ extension MainViewController: UISearchBarDelegate {
 
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.networkDataFetcher.fetchImages(searchTerm: searchText) { [weak self] (searchResults) in
+            self.networkDataFetcher.fetchImages(searchType: .photos(searchTerm: searchText)) { [weak self] (searchResults) in
                 guard let fetchedPhotos = searchResults else { return }
                 self?.photos = fetchedPhotos.results
                 self?.createCollectionView()
@@ -221,17 +267,17 @@ extension MainViewController: SegmentedControllProtocol {
     internal func actionSV(cell: MainVCControlCell, index: Int) {
         switch index {
         case 0:
-            cell.popularButton.tintColor = .black
-            cell.newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            cell.followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.historyButton.tintColor = .black
+            cell.athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
         case 1:
-            cell.popularButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            cell.newButton.tintColor = .black
-            cell.followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.athleticsButton.tintColor = .black
+            cell.technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
         default:
-            cell.popularButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            cell.newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            cell.followButton.tintColor = .black
+            cell.historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.technologyButton.tintColor = .black
         }
     }
     

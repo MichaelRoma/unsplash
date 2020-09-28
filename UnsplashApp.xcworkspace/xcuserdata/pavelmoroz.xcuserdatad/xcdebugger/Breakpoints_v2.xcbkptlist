@@ -8,14 +8,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "198D4AD0-0141-4B26-89A9-45914F38E59C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnsplashApp/MainVC/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "searchBar(_:textDidChange:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -24,14 +24,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "0F1EE976-2F56-4E85-952F-395DBC4D8E54"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnsplashApp/MainVC/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "createDataSource()"
             landmarkType = "7">
          </BreakpointContent>
@@ -40,15 +40,191 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C334F5D3-E4D0-47CC-BBA0-9DC43E3229F0"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnsplashApp/MainVC/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "createDataSource()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "930A2193-8318-4231-A820-2D89B441FDF9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnsplashApp/MainVC/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D3F5FFED-2BAA-4C05-BBAF-E1227F1E8354"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnsplashApp/MainVC/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4992FEC9-85FF-4D4B-82D3-D13D8221693E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnsplashApp/NetworkService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "prepareParaments(searchType:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7312D66E-3A5A-4F6A-9008-90F869FDAC83"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnsplashApp/NetworkDataFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "getImagesFromTopics(idTopics:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7312D66E-3A5A-4F6A-9008-90F869FDAC83 - 63059fc43e08cffb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UnsplashApp.NetworkDataFetcher.getImagesFromTopics(idTopics: Swift.String, completion: (Swift.Optional&lt;UnsplashApp.TopicsImagesResult&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "UnsplashApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pavelmoroz/Downloads/Unsplash/UnsplashApp/NetworkDataFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  uuid = "7312D66E-3A5A-4F6A-9008-90F869FDAC83 - 54681b1af269f1e2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UnsplashApp.NetworkDataFetcher.getImagesFromTopics(idTopics: Swift.String, completion: (Swift.Optional&lt;UnsplashApp.TopicsImagesResult&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "UnsplashApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pavelmoroz/Downloads/Unsplash/UnsplashApp/NetworkDataFetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "198C852D-1CAB-4418-BA58-33EFE5099C81"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnsplashApp/NetworkService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "request(searchType:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "08F103EE-9E4B-4E9D-8F52-D51CB7F18A2B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnsplashApp/MainVC/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "08F103EE-9E4B-4E9D-8F52-D51CB7F18A2B - 567692afd549585c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (UnsplashApp.ListTopicsResult) -&gt; () in closure #1 (Swift.Optional&lt;Swift.Array&lt;UnsplashApp.ListTopicsResult&gt;&gt;) -&gt; () in UnsplashApp.MainViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "UnsplashApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pavelmoroz/Downloads/Unsplash/UnsplashApp/MainVC/MainViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "1432">
+               </Location>
+               <Location
+                  uuid = "08F103EE-9E4B-4E9D-8F52-D51CB7F18A2B - 7ab77a101f1cfd8e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;UnsplashApp.TopicsImagesResult&gt;) -&gt; () in closure #1 (UnsplashApp.ListTopicsResult) -&gt; () in closure #1 (Swift.Optional&lt;Swift.Array&lt;UnsplashApp.ListTopicsResult&gt;&gt;) -&gt; () in UnsplashApp.MainViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "UnsplashApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pavelmoroz/Downloads/Unsplash/UnsplashApp/MainVC/MainViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "212">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BD72333B-B7F7-4E7D-B2AE-61A6BC391C0D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnsplashApp/NetworkService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "prepareParaments(searchType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

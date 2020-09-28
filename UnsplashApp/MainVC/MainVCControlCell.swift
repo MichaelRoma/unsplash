@@ -19,9 +19,9 @@ class MainVCControlCell: UICollectionViewCell {
     let nameSegmentedControl = UISegmentedControl(items: ["Popula", "New", "Follow"])
     
     //Три новые кнопки
-    let popularButton = UIButton(type: .system)
-    let newButton = UIButton(type: .system)
-    let followButton = UIButton(type: .system)
+    let historyButton = UIButton(type: .system)
+    let athleticsButton = UIButton(type: .system)
+    let technologyButton = UIButton(type: .system)
 
     weak var refreshDelegate: MainViewControllerUpdateDataDelegate?
     
@@ -116,7 +116,7 @@ extension MainVCControlCell {
     private func setupConstraints() {
         
         buttonCreation()
-        let firstStack = UIStackView(arrangedSubviews: [popularButton, newButton, followButton])
+        let firstStack = UIStackView(arrangedSubviews: [historyButton, athleticsButton, technologyButton])
         firstStack.axis = .horizontal
         firstStack.spacing = 14
         
@@ -139,44 +139,44 @@ extension MainVCControlCell {
     }
     
     private func buttonCreation() {
-        popularButton.setTitle("Latest", for: .normal)
-        newButton.setTitle("Oldest", for: .normal)
-        followButton.setTitle("Popular", for: .normal)
+        historyButton.setTitle("History", for: .normal)
+        athleticsButton.setTitle("Athletics", for: .normal)
+        technologyButton.setTitle("Technology", for: .normal)
         
-        popularButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
-        newButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
-        followButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
+        historyButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
+        athleticsButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
+        technologyButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
         
-        popularButton.tintColor = .black
-        newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        historyButton.tintColor = .black
+        athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
 
         if UserDefaults.standard.getOrderRequest() == Order.latest.rawValue {
-            popularButton.tintColor = .black
-            newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            historyButton.tintColor = .black
+            athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
         } else if UserDefaults.standard.getOrderRequest() == Order.oldest.rawValue {
 
-            popularButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            newButton.tintColor = .black
-            followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            athleticsButton.tintColor = .black
+            technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
         } else if UserDefaults.standard.getOrderRequest() == Order.popular.rawValue {
 
-            popularButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            followButton.tintColor = .black
+            historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            technologyButton.tintColor = .black
         } else {
-            popularButton.tintColor = .black
-            newButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            followButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            historyButton.tintColor = .black
+            athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
         }
         
-        popularButton.tag = 0
-        newButton.tag = 1
-        followButton.tag = 2
+        historyButton.tag = 0
+        athleticsButton.tag = 1
+        technologyButton.tag = 2
         
-        popularButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
-        newButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
-        followButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
+        historyButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
+        athleticsButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
+        technologyButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
     }
 }

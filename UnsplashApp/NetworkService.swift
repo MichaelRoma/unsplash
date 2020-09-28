@@ -8,20 +8,34 @@
 
 import Foundation
 
-enum ComponentsPath: String {
+enum SearchType {
+    case photos(searchTerm: String)
+    case random
+    case topics
+    case topicsImages(id: String)
 
-    case search = "/search/photos"
-    case random = "/photos/random"
-
+    var typeName: String {
+        switch self {
+        case .photos:
+            return "/search/photos"
+        case .random:
+            return "/photos/random"
+        case .topics :
+            return "/topics"
+        case .topicsImages (let id):
+            return "/topics/:\(id)/photos"
+        }
+    }
 }
 
 class NetworkService {
 
     // построение запроса данных по URL
-    func request(searchTerm: String, completion: @escaping (Data?, Error?) -> Void)  {
+    func request(searchType: SearchType, completion: @escaping (Data?, Error?) -> Void)  {
 
-        let parameters = self.prepareParaments(searchTerm: searchTerm)
-        let url = self.url(params: parameters)
+        let parameters = self.prepareParaments(searchType: searchType)
+        let url = self.url(searchType: searchType.typeName, params: parameters)
+
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = prepareHeader()
         request.httpMethod = "get"
@@ -35,21 +49,41 @@ class NetworkService {
         return headers
     }
 
-    private func prepareParaments(searchTerm: String?) -> [String: String] {
+    private func prepareParaments(searchType: SearchType) -> [String: String] {
+
         var parameters = [String: String]()
-        parameters["query"] = searchTerm
-        parameters["page"] = String(1)
-        parameters["per_page"] = String(30)
-        parameters["order_by"] = String(UserDefaults.standard.getOrderRequest())
+
+        switch searchType {
+        case .photos (let searchTerm):
+            parameters["query"] = searchTerm
+            parameters["page"] = String(1)
+            parameters["per_page"] = String(30)
+            parameters["order_by"] = String(UserDefaults.standard.getOrderRequest())
+
+        case .random:
+            parameters["count"] = String(30)
+            
+        case .topics:
+            parameters["order_by"] = "latest"
+
+        case .topicsImages (let id):
+            
+            parameters["id_or_slug"] = id
+//            parameters["page"] = String(1)
+//            parameters["per_page"] = String(30)
+//            parameters["order_by"] = "popular"
+
+            //https://api.unsplash.com/topics/:dijpbw99kQQ/photos?page=530
+        }
 
         return parameters
     }
 
-    private func url(params: [String: String]) -> URL {
+    private func url(searchType: String,  params: [String: String]) -> URL {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.unsplash.com"
-        components.path = ComponentsPath.search.rawValue
+        components.path = searchType
         components.queryItems = params.map { URLQueryItem(name: $0, value: $1)}
         return components.url!
     }

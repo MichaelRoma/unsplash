@@ -13,14 +13,39 @@ class NetworkDataFetcher {
 
     var networkService = NetworkService()
 
-    func fetchImages(searchTerm: String, completion: @escaping (SearchResults?) -> ()) {
-        networkService.request(searchTerm: searchTerm) { (data, error) in
+    func fetchImages(searchType: SearchType, completion: @escaping (SearchResults?) -> ()) {
+        networkService.request(searchType: searchType) { (data, error) in
             if let error = error {
                 print("Error received requesting data: \(error.localizedDescription)")
                 completion(nil)
             }
 
             let decode = self.decodeJSON(type: SearchResults.self, from: data)
+            completion(decode)
+        }
+    }
+
+    func getListTopics(completion: @escaping (ListTopicsResults?) -> ()) {
+        networkService.request(searchType: .topics) { (data, error) in
+
+            if let error = error {
+                print("Error received requesting data: \(error.localizedDescription)")
+                completion(nil)
+            }
+
+            let decode = self.decodeJSON(type: ListTopicsResults.self, from: data)
+            completion(decode)
+        }
+    }
+
+    func getImagesFromTopics(idTopics: String, completion: @escaping (TopicsImagesResult?) -> ()) {
+
+        networkService.request(searchType: .topicsImages(id: idTopics)) { (data, error) in
+            if let error = error {
+                print("Error received requesting data: \(error.localizedDescription)")
+                completion(nil)
+            }
+            let decode = self.decodeJSON(type: TopicsImagesResult.self, from: data)
             completion(decode)
         }
     }
