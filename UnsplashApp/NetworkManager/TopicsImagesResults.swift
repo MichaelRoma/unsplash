@@ -26,10 +26,6 @@ import Foundation
 // MARK: - TopicsImagesResult
 struct TopicsImagesResult: Decodable {
     let id: String?
-    let createdAt, updatedAt: Date?
-    let width, height: Int?
-    let color: String?
-    let likes: Int?
     let likedByUser: Bool?
     let topicsImagesResultDescription: String?
     let user: User?
@@ -38,16 +34,12 @@ struct TopicsImagesResult: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case width, height, color, likes
         case likedByUser = "liked_by_user"
         case topicsImagesResultDescription = "description"
         case user
         case urls, links
     }
 }
-
 
 
 // MARK: - TopicsImagesResultLinks

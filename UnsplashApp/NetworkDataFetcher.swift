@@ -38,14 +38,14 @@ class NetworkDataFetcher {
         }
     }
 
-    func getImagesFromTopics(idTopics: String, completion: @escaping (TopicsImagesResult?) -> ()) {
+    func getImagesFromTopics(idTopics: String, completion: @escaping (TopicsImagesResults?) -> ()) {
 
         networkService.request(searchType: .topicsImages(id: idTopics)) { (data, error) in
             if let error = error {
                 print("Error received requesting data: \(error.localizedDescription)")
                 completion(nil)
             }
-            let decode = self.decodeJSON(type: TopicsImagesResult.self, from: data)
+            let decode = self.decodeJSON(type: TopicsImagesResults.self, from: data)
             completion(decode)
         }
     }

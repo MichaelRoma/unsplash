@@ -16,5 +16,5 @@ enum OrderKind: String {
 
 enum Order: String {
 
-    case latest, oldest, popular
+    case history, athletics, technology
 }

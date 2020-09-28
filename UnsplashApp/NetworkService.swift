@@ -23,7 +23,7 @@ enum SearchType {
         case .topics :
             return "/topics"
         case .topicsImages (let id):
-            return "/topics/:\(id)/photos"
+            return "/topics/\(id)/photos"
         }
     }
 }
@@ -69,11 +69,8 @@ class NetworkService {
         case .topicsImages (let id):
             
             parameters["id_or_slug"] = id
-//            parameters["page"] = String(1)
-//            parameters["per_page"] = String(30)
-//            parameters["order_by"] = "popular"
+            parameters["client_id"] = UserDefaults.standard.getUserToken()
 
-            //https://api.unsplash.com/topics/:dijpbw99kQQ/photos?page=530
         }
 
         return parameters

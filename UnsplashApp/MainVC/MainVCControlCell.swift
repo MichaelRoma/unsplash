@@ -52,14 +52,14 @@ class MainVCControlCell: UICollectionViewCell {
         delegat?.actionSV(cell: self, index: sender.tag)
         switch sender.tag {
         case 0:
-            UserDefaults.standard.setOrderRequest(value: Order.latest.rawValue)
+            UserDefaults.standard.setOrderRequest(value: Order.history.rawValue)
         case 1:
-            UserDefaults.standard.setOrderRequest(value: Order.oldest.rawValue)
+            UserDefaults.standard.setOrderRequest(value: Order.athletics.rawValue)
         case 2:
-            UserDefaults.standard.setOrderRequest(value: Order.popular.rawValue)
+            UserDefaults.standard.setOrderRequest(value: Order.technology.rawValue)
 
         default:
-            UserDefaults.standard.setOrderRequest(value: Order.latest.rawValue)
+            UserDefaults.standard.setOrderRequest(value: Order.history.rawValue)
         }
 
         refreshDelegate?.refreshData()
@@ -151,16 +151,16 @@ extension MainVCControlCell {
         athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
         technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
 
-        if UserDefaults.standard.getOrderRequest() == Order.latest.rawValue {
+        if UserDefaults.standard.getOrderRequest() == Order.history.rawValue {
             historyButton.tintColor = .black
             athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
             technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        } else if UserDefaults.standard.getOrderRequest() == Order.oldest.rawValue {
+        } else if UserDefaults.standard.getOrderRequest() == Order.athletics.rawValue {
 
             historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
             athleticsButton.tintColor = .black
             technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        } else if UserDefaults.standard.getOrderRequest() == Order.popular.rawValue {
+        } else if UserDefaults.standard.getOrderRequest() == Order.technology.rawValue {
 
             historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
             athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)

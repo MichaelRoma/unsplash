@@ -30,7 +30,6 @@ struct CoverPhoto: Decodable {
 // MARK: - Urls
 struct UrlsImages: Decodable {
     let raw, full, regular, small: String?
-    let thumb: String?
 }
 
 // MARK: - User
