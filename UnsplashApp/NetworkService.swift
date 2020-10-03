@@ -11,8 +11,8 @@ import Foundation
 enum SearchType {
     case photos(searchTerm: String)
     case random
-    case topics
-    case topicsImages(id: String)
+    case getTopics
+    case getTopicsImages(id: String)
 
     var typeName: String {
         switch self {
@@ -20,9 +20,9 @@ enum SearchType {
             return "/search/photos"
         case .random:
             return "/photos/random"
-        case .topics :
+        case .getTopics :
             return "/topics"
-        case .topicsImages (let id):
+        case .getTopicsImages (let id):
             return "/topics/\(id)/photos"
         }
     }
@@ -35,6 +35,7 @@ class NetworkService {
 
         let parameters = self.prepareParaments(searchType: searchType)
         let url = self.url(searchType: searchType.typeName, params: parameters)
+//864f40e4cbc3adc205e2ba2c97d79ae03f72d8def4b797c5a8a1932171c4a685
 
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = prepareHeader()
@@ -58,18 +59,22 @@ class NetworkService {
             parameters["query"] = searchTerm
             parameters["page"] = String(1)
             parameters["per_page"] = String(30)
-            parameters["order_by"] = String(UserDefaults.standard.getOrderRequest())
+           // parameters["order_by"] = String(UserDefaults.standard.getOrderRequest())
 
         case .random:
             parameters["count"] = String(30)
             
-        case .topics:
+        case .getTopics:
             parameters["order_by"] = "latest"
 
-        case .topicsImages (let id):
+        case .getTopicsImages (let id):
             
             parameters["id_or_slug"] = id
-            parameters["client_id"] = UserDefaults.standard.getUserToken()
+            parameters["client_id"] = "Qy2zCD4_4BeQsxP1zYvZwp_ByovjR3rQXjjFMbAelkI"
+
+            //UserDefaults.standard.getUserToken()
+
+            //"864f40e4cbc3adc205e2ba2c97d79ae03f72d8def4b797c5a8a1932171c4a685"
 
         }
 

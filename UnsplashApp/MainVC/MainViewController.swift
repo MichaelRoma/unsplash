@@ -14,67 +14,102 @@ extension StringProtocol {
 }
 
 protocol MainViewControllerUpdateDataDelegate: class {
-    func refreshData()
+    func refreshData(idTopic: TopicTitlesKeys)
 }
 
 
 class MainViewController: UIViewController {
-    
+
+    // MARK: - Properties
+
     var sections: [MainVCSection] = []
 
     var dataSource: UICollectionViewDiffableDataSource<MainVCSection, MainVCItems>?
     var currentSnapshot: NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>?
 
     var networkDataFetcher = NetworkDataFetcher()
+    var photos = [TopicsImagesResult]()
+    var searchPhotos = [UnsplashPhoto]()
     
     var collectionView: UICollectionView!
-    private var collums = 1
 
+    lazy var searchBar = UISearchBar()
+
+    private var collums = 1
     private var timer: Timer?
-    var photos = [TopicsImagesResult]()
+
     private var selectedImages = [UIImage]()
-    
+
+    // MARK: - View Lifecicle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
 
+        setupSearchBar()
         createCollectionView()
         collectionView.delegate = self
 
-        setupSearchBar()
+        searchBar.delegate = self
 
-        print(UserDefaults.standard.getUserToken())
+        #warning(" Добавить норм функцию")
 
         
-        networkDataFetcher.getListTopics { [weak self] (searchResults) in
-            guard let fetchedTopics = searchResults else { return }
+        networkDataFetcher.getsCurrensTopicsIDs(from: [.Athletics, .History, .Technology])
 
-            fetchedTopics.map { (fetchedTopic)  in
+        networkDataFetcher.getImages(idTopic: UserDefaults.standard.getCurrentTopicID(key: .History)) { [weak self] (results) in
 
-                guard let title = fetchedTopic.title else { return }
-
-                // print(UserDefaults.standard.getOrderRequest().firstUppercased)
-                
-                if title == UserDefaults.standard.getOrderRequest().firstUppercased {
-                    //print( fetchedTopic.id)
-                    //print(fetchedTopic.slug)
-                    guard let id = fetchedTopic.id else { return }
-                    let slug = fetchedTopic.slug ?? ""
-                    //id_or_slug
-
-                    self?.networkDataFetcher.getImagesFromTopics(idTopics: id) { [weak self] (searchResults) in
-
-                        guard let fetchedImages = searchResults else { return }
-
-                        self?.photos = fetchedImages
-                        self?.createCollectionView()
-                        self?.collectionView.reloadData()
-                        self?.refresh()
-                    }
-                }
-            }
+            guard let results = results else { return }
+            self?.photos = results
+            self?.createCollectionView()
+            self?.collectionView.reloadData()
+            self?.refresh()
         }
     }
+}
+
+extension MainViewController: MainViewControllerUpdateDataDelegate {
+
+    func refreshData(idTopic: TopicTitlesKeys) {
+
+        networkDataFetcher.getImages(idTopic: UserDefaults.standard.getCurrentTopicID(key: idTopic)) { [weak self] (results) in
+
+            guard let results = results else { return }
+            self?.photos = results
+            self?.createCollectionView()
+            self?.collectionView.reloadData()
+            self?.refresh()
+        }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension MainViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        guard let searchText = searchBar.text else { return }
+        print(searchText)
+
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            #warning(" Добавить норм функцию")
+            self.networkDataFetcher.fetchImages(searchType: .photos(searchTerm: searchText)) { [weak self] (searchResults) in
+                guard let fetchedPhotos = searchResults else { return }
+
+                self?.searchPhotos = fetchedPhotos.results
+                self?.createCollectionView()
+                self?.collectionView.reloadData()
+                self?.refresh()
+
+            }
+        })
+    }
+}
+
+// MARK: Setup View
+extension MainViewController {
 
     private func createMainVCItems() -> [MainVCItems] {
 
@@ -88,82 +123,10 @@ class MainViewController: UIViewController {
     }
 
     private func setupSearchBar() {
-        let seacrhController = UISearchController(searchResultsController: nil)
-        navigationItem.searchController = seacrhController
-        seacrhController.hidesNavigationBarDuringPresentation = false
-        seacrhController.obscuresBackgroundDuringPresentation = false
-        seacrhController.searchBar.delegate = self
+
+        self.navigationItem.titleView = searchBar
     }
 
-    func refresh() {
-        self.selectedImages.removeAll()
-        self.collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
-    }
-}
-
-extension MainViewController: MainViewControllerUpdateDataDelegate {
-
-    func refreshData() {
-
-        let search = navigationItem.searchController?.searchBar.text ?? ""
-        //print(search)
-
-        networkDataFetcher.getListTopics { [weak self] (searchResults) in
-            guard let fetchedTopics = searchResults else { return }
-
-            fetchedTopics.map { (fetchedTopic)  in
-
-                guard let title = fetchedTopic.title else { return }
-
-                if title == UserDefaults.standard.getOrderRequest().firstUppercased {
-                    //print( fetchedTopic.id)
-                    //print(fetchedTopic.slug)
-                    guard let id = fetchedTopic.id else { return }
-                    let slug = fetchedTopic.slug ?? ""
-                    //id_or_slug
-
-                    self?.networkDataFetcher.getImagesFromTopics(idTopics: id) { [weak self] (searchResults) in
-
-                        guard let fetchedImages = searchResults else { return }
-
-                        self?.photos = fetchedImages
-                        self?.createCollectionView()
-                        self?.collectionView.reloadData()
-                        self?.refresh()
-
-                    }
-                }
-
-                //print(fetchedTopics.title ?? "")
-            }
-
-        }
-    }
-}
-
-// MARK: - UISearchBarDelegate
-
-extension MainViewController: UISearchBarDelegate {
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //print(navigationItem.searchController?.title)
-
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.networkDataFetcher.fetchImages(searchType: .photos(searchTerm: searchText)) { [weak self] (searchResults) in
-                guard let fetchedPhotos = searchResults else { return }
-                //self?.photos = fetchedPhotos.results
-                self?.createCollectionView()
-                self?.collectionView.reloadData()
-                self?.refresh()
-
-            }
-        })
-    }
-}
-
-// MARK: pravite func
-extension MainViewController {
     private func createCollectionView() {
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionLayout())
@@ -194,29 +157,20 @@ extension MainViewController {
             default:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainVCImageCell.reuseId, for: indexPath) as! MainVCImageCell
 
-                // тут вставляем ссылку на картинки
+                if self.photos.count - 1 > indexPath.item && self.searchBar.text == "" {
 
-                if self.photos.count - 1 > indexPath.item  {
-
-                    //cell.configurator(with: self.photos[indexPath.item].urls["regular"] ?? "")
                     cell.configurator(with: self.photos[indexPath.item].urls?.regular ?? "")
-
                 }
+
+                if self.searchPhotos.count - 1 > indexPath.item && self.searchBar.text != "" {
+
+                    cell.configurator(with: self.searchPhotos[indexPath.item].urls?.regular ?? "")
+                }
+                
 
                 return cell
             }
         })
-    }
-    
-    private func reloadData() {
-        currentSnapshot = NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>()
-        
-        currentSnapshot?.appendSections(sections)
-        
-        for section in sections {
-            currentSnapshot?.appendItems(section.items, toSection: section)
-        }
-        dataSource?.apply(currentSnapshot!)
     }
     
     private func createCompositionLayout() -> UICollectionViewLayout {
@@ -230,21 +184,7 @@ extension MainViewController {
         }
         return layout
     }
-    
-    //    private func createMainSection() -> NSCollectionLayoutSection {
-    //        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(166))
-    //        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    //        item.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 10, trailing: 0)
-    //
-    //        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
-    //        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-    //
-    //        let section = NSCollectionLayoutSection(group: group)
-    //        section.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 20, bottom: 0, trailing: 20)
-    //
-    //        return section
-    //    }
-    
+
     private func createMainSectionGrid2x2() -> NSCollectionLayoutSection{
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -275,52 +215,66 @@ extension MainViewController {
     }
 }
 
-extension MainViewController: SegmentedControllProtocol {
-    
-    internal func actionSV(cell: MainVCControlCell, index: Int) {
-        switch index {
-        case 0:
-            cell.historyButton.tintColor = .black
-            cell.athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            cell.technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        case 1:
-            cell.historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            cell.athleticsButton.tintColor = .black
-            cell.technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        default:
-            cell.historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            cell.athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            cell.technologyButton.tintColor = .black
-        }
-    }
+// MARK: ChangeCellViewProtocol
+
+extension MainViewController: ChangeCellViewProtocol {
+
     
     internal func buttonAction(cell: MainVCControlCell, tag: Int) {
+
+        let deselectColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        let grid1x1Image = UIImage(systemName: "rectangle.grid.1x2.fill")
+        let grid2x2Image = UIImage(systemName: "rectangle.grid.2x2")
+
         if tag == 0 {
-            cell.buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2.fill"), for: .normal)
-            cell.buttonFirst.tintColor = .black
+            cell.oneInRowButton.setImage(grid1x1Image, for: .normal)
+            cell.oneInRowButton.tintColor = .black
             
-            cell.buttonSecond.setImage(UIImage(systemName: "rectangle.grid.2x2"), for: .normal)
-            cell.buttonSecond.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.twoInRowButton.setImage(grid2x2Image, for: .normal)
+            cell.twoInRowButton.tintColor = deselectColor
             collums = 1
-            dataSource?.apply(currentSnapshot!)
             
         } else {
-            cell.buttonSecond.setImage(UIImage(systemName: "rectangle.grid.2x2.fill"), for: .normal)
-            cell.buttonSecond.tintColor = .black
+            cell.twoInRowButton.setImage(grid2x2Image, for: .normal)
+            cell.twoInRowButton.tintColor = .black
             
-            cell.buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2"), for: .normal)
-            cell.buttonFirst.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+            cell.oneInRowButton.setImage(grid1x1Image, for: .normal)
+            cell.oneInRowButton.tintColor = deselectColor
             collums = 2
-            dataSource?.apply(currentSnapshot!)
         }
+
+        dataSource?.apply(currentSnapshot!)
     }
 }
+
+// MARK: UICollectionViewDelegate
 
 extension MainViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let newViewController = ScrollImageViewController()
-        // newViewController.imageScrollView.set(image: <#T##UIImage#>)
         self.navigationController?.pushViewController(newViewController, animated: true)
+    }
+}
+
+
+// MARK: Reload/Refresh UI
+
+extension MainViewController {
+
+    private  func refresh() {
+        self.selectedImages.removeAll()
+        self.collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
+    }
+
+    private func reloadData() {
+        currentSnapshot = NSDiffableDataSourceSnapshot<MainVCSection, MainVCItems>()
+
+        currentSnapshot?.appendSections(sections)
+
+        for section in sections {
+            currentSnapshot?.appendItems(section.items, toSection: section)
+        }
+        dataSource?.apply(currentSnapshot!)
     }
 }

@@ -42,6 +42,7 @@
 		D757C5F1251E83BC003DB69C /* OrderEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C5F0251E83BC003DB69C /* OrderEnum.swift */; };
 		D7AC0DBE251F7BB600F0E5E4 /* ListTopicsResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AC0DBD251F7BB600F0E5E4 /* ListTopicsResults.swift */; };
 		D7AC0DC1252081A200F0E5E4 /* TopicsImagesResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AC0DC0252081A200F0E5E4 /* TopicsImagesResults.swift */; };
+		D7B0AB2125247B43000201C1 /* TopicTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B0AB2025247B43000201C1 /* TopicTitles.swift */; };
 		D7BF97132511EA8700B45A5D /* PanelTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97122511EA8700B45A5D /* PanelTransition.swift */; };
 		D7BF97152511EAAC00B45A5D /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97142511EAAC00B45A5D /* TransitionDriver.swift */; };
 		D7BF97172511EAC500B45A5D /* TransitionDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF97162511EAC500B45A5D /* TransitionDirection.swift */; };
@@ -95,6 +96,7 @@
 		D757C5F0251E83BC003DB69C /* OrderEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEnum.swift; sourceTree = "<group>"; };
 		D7AC0DBD251F7BB600F0E5E4 /* ListTopicsResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTopicsResults.swift; sourceTree = "<group>"; };
 		D7AC0DC0252081A200F0E5E4 /* TopicsImagesResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsImagesResults.swift; sourceTree = "<group>"; };
+		D7B0AB2025247B43000201C1 /* TopicTitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTitles.swift; sourceTree = "<group>"; };
 		D7BF97122511EA8700B45A5D /* PanelTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelTransition.swift; sourceTree = "<group>"; };
 		D7BF97142511EAAC00B45A5D /* TransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
 		D7BF97162511EAC500B45A5D /* TransitionDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionDirection.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				D757C5E0251E45B0003DB69C /* NetworkService.swift */,
 				D757C5E4251E45BD003DB69C /* NetworkDataFetcher.swift */,
 				D757C5F0251E83BC003DB69C /* OrderEnum.swift */,
+				D7B0AB2025247B43000201C1 /* TopicTitles.swift */,
 			);
 			name = NetworkService;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				4CF74A8724E8EC1200C2C11E /* ProfileCellTop.swift in Sources */,
 				D7AC0DBE251F7BB600F0E5E4 /* ListTopicsResults.swift in Sources */,
 				D757C5F1251E83BC003DB69C /* OrderEnum.swift in Sources */,
+				D7B0AB2125247B43000201C1 /* TopicTitles.swift in Sources */,
 				4C4C3F4A24F1329000BCF0CA /* PhotosInfoCollectionViewCell.swift in Sources */,
 				D757C599251D344F003DB69C /* Utility.swift in Sources */,
 				4C4C3F4E24F14BDF00BCF0CA /* MainTabBarController.swift in Sources */,

@@ -25,28 +25,67 @@ class NetworkDataFetcher {
         }
     }
 
-    func getListTopics(completion: @escaping (ListTopicsResults?) -> ()) {
-        networkService.request(searchType: .topics) { (data, error) in
+    //    func getListTopics(completion: @escaping (ListTopicsResults?) -> ()) {
+    //        networkService.request(searchType: .topics) { (data, error) in
+    //
+    //            if let error = error {
+    //                print("Error received requesting data: \(error.localizedDescription)")
+    //                completion(nil)
+    //            }
+    //
+    //            let decode = self.decodeJSON(type: ListTopicsResults.self, from: data)
+    //
+    //            decode?.forEach({ (listTopicsResult) in
+    //                listTopicsResult.coverPhoto?.urls?.regular
+    //            })
+    //
+    //            completion(decode)
+    //        }
+    //    }
+    //
 
+    func getsCurrensTopicsIDs(from topicTitle: [TopicTitles]) {
+
+        //отправляем запрос на получение данных data по определенным настройкам (в зависимости от searchType)
+        networkService.request(searchType: .getTopics) { (data, error) in
+
+            //проверяем на ошибки
             if let error = error {
-                print("Error received requesting data: \(error.localizedDescription)")
-                completion(nil)
+                print ("Error received requesting data: \(error.localizedDescription)")
+                //completion(nil)
             }
 
-            let decode = self.decodeJSON(type: ListTopicsResults.self, from: data)
-            completion(decode)
-        }
-    }
+            //Получаем массив топиков topicsDecode
+            guard let topicsDecode = self.decodeJSON(type: ListTopicsResults.self, from: data) else { return }
 
-    func getImagesFromTopics(idTopics: String, completion: @escaping (TopicsImagesResults?) -> ()) {
+            //Проходимся по каждому топику из массива topicsDecode
+            topicsDecode.forEach({ (topicDecode) in
 
-        networkService.request(searchType: .topicsImages(id: idTopics)) { (data, error) in
-            if let error = error {
-                print("Error received requesting data: \(error.localizedDescription)")
-                completion(nil)
-            }
-            let decode = self.decodeJSON(type: TopicsImagesResults.self, from: data)
-            completion(decode)
+                //избавляемся от опционалов в нужных нам значениях
+                guard let titleOfTopicDecode = topicDecode.title else { return }
+                guard let idOfTopicDecode = topicDecode.id else { return }
+
+                //Делаем проверку на соответсвие нужного нам title из topicDecode (что пришел), с тем, что нас нужен
+                for topic in topicTitle {
+
+                    if topic.title == titleOfTopicDecode {
+                        
+                       // Записываем в юзер дефолтс id топиков, что нам нужны по title
+
+                        switch titleOfTopicDecode {
+
+                        case TopicTitles.Athletics.title:
+                            UserDefaults.standard.setCurrentTopicID(value: idOfTopicDecode, key: .Athletics)
+                        case TopicTitles.History.title:
+                            UserDefaults.standard.setCurrentTopicID(value: idOfTopicDecode, key: .History)
+                        case TopicTitles.Technology.title:
+                            UserDefaults.standard.setCurrentTopicID(value: idOfTopicDecode, key: .Technology)
+                        default:
+                            break
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -63,5 +102,17 @@ class NetworkDataFetcher {
         }
     }
 
+    func getImages(idTopic: String, completion: @escaping (TopicsImagesResults?) -> ()) {
 
+            networkService.request(searchType: .getTopicsImages(id: idTopic)) { (data, error) in
+                if let error = error {
+                    print("Error received requesting data: \(error.localizedDescription)")
+                    completion(nil)
+                }
+
+                let decode = self.decodeJSON(type: TopicsImagesResults.self, from: data)
+                completion(decode)
+            }
+
+    }
 }

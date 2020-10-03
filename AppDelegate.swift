@@ -26,8 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if UserDefaults.standard.isLoggedIn() {
 
+           // window?.rootViewController = MainTabBarController()
             window?.rootViewController = MainTabBarController()
         } else {
+
+            //window?.rootViewController = LoginViewController()
 
             window?.rootViewController = LoginViewController()
         }

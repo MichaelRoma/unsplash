@@ -29,18 +29,36 @@ extension UserDefaults{
         return string(forKey: UserDefaultsKeys.userToken.rawValue) ?? ""
     }
 
-    //MARK: Save Order Data
-    func setOrderRequest(value: String){
-        set(value, forKey: "Order")
+    func setTopicImageURLS(value: [String], key: String) {
+        set(value, forKey: key)
     }
 
-    //MARK: Retrieve Order Data
-    func getOrderRequest() -> String{
-        return string(forKey: "Order") ?? ""
+    func getTopicImageURLS(key: TopicTitlesKeys) -> [String] {
+        //return array(forKey: TopicTitlesKeys.RawValue)
+        return stringArray(forKey: key.rawValue) ?? [""]
+    }
+
+    func setCurrentTopicID(value: String, key: TopicTitlesKeys) {
+
+        set(value, forKey: key.rawValue)
+    }
+
+    func getCurrentTopicID(key: TopicTitlesKeys) -> String {
+
+        return string(forKey: key.rawValue) ?? ""
     }
 }
 
 enum UserDefaultsKeys : String {
+    
     case isLoggedIn
     case userToken
 }
+
+enum TopicTitlesKeys: String {
+
+    case History
+    case Athletics
+    case Technology
+}
+

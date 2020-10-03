@@ -8,7 +8,11 @@
 
 import UIKit
 
+typealias exitClosure = (( )-> Void)
+
 class LoginViewController: UIViewController {
+
+    static let shared = LoginViewController()
 
     let loginButton = UIButton()
 
@@ -47,7 +51,23 @@ class LoginViewController: UIViewController {
             if status {
                 
                 print("####     authorigation done    #######")
+                self.exit()
+
             }
+        }
+    }
+}
+
+extension LoginViewController: ExitViewProtocol {
+
+    func exit() {
+
+        DispatchQueue.main.async {
+            let vc = MainViewController()
+            vc.modalPresentationStyle = .fullScreen
+            //self.navigationController?.present(vc, animated: true, completion: nil)
+
+            self.present(vc, animated: true, completion: nil)
         }
     }
 }

@@ -9,12 +9,4 @@
 import Foundation
 
 
-enum OrderKind: String {
 
-    case latest, oldest, popular
-}
-
-enum Order: String {
-
-    case history, athletics, technology
-}

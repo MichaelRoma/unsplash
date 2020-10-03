@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol ExitViewProtocol: class {
+    func exit()
+}
+
 class NetworkManager {
+
     static let sharedManager = NetworkManager()
     public var unsplashToken:UnsplashAccessToken?
     var networkTask: URLSessionDataTask?
+
+    var networkExitViewProtocol: ExitViewProtocol?
 
     public func authorizeFromController(controller: UIViewController, completion:@escaping (Bool, Error?) -> Void) {
           precondition(UnsplashAuthManager.sharedAuthManager != nil, "call `UnsplashAuthManager.init` before calling this method")
@@ -21,10 +28,18 @@ class NetworkManager {
                    self.unsplashToken = accessToken
 
                 UserDefaults.standard.setLoggedIn(value: true)
-                UserDefaults.standard.setUserToken(value: String(describing: accessToken.accessToken!))
+
+                guard let token =  accessToken.accessToken else { return }
+
+                UserDefaults.standard.setUserToken(value: token)
+
+                ///метод
+                self.networkExitViewProtocol?.exit()
                 
                    print("######   \(String(describing: accessToken.accessToken))          ####")
                    completion(true, nil)
+
+
                } else  {
                    completion(false, error!)
                }

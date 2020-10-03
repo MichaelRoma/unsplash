@@ -5,8 +5,7 @@
 //  Created by Mykhailo Romanovskyi on 15.08.2020.
 //  Copyright © 2020 Mykhailo Romanovskyi. All rights reserved.
 //
-protocol SegmentedControllProtocol: class {
-    func actionSV(cell: MainVCControlCell, index: Int)
+protocol ChangeCellViewProtocol: class {
     func buttonAction(cell: MainVCControlCell, tag: Int)
 }
 
@@ -14,9 +13,8 @@ import UIKit
 
 class MainVCControlCell: UICollectionViewCell {
     
-    let buttonFirst = UIButton()
-    let buttonSecond = UIButton()
-    let nameSegmentedControl = UISegmentedControl(items: ["Popula", "New", "Follow"])
+    let oneInRowButton = UIButton()
+    let twoInRowButton = UIButton()
     
     //Три новые кнопки
     let historyButton = UIButton(type: .system)
@@ -27,7 +25,7 @@ class MainVCControlCell: UICollectionViewCell {
     
     static let reuseId = "mainControlCell"
     
-    weak var delegat: SegmentedControllProtocol?
+    weak var delegat: ChangeCellViewProtocol?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,79 +36,52 @@ class MainVCControlCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc private func actionStyleSegmented(_ sender: UISegmentedControl) {
-        let a = sender.selectedSegmentIndex
-        delegat?.actionSV(cell: self, index: a)
-    }
+
+    //MARK: @objc methods
+
     
     @objc private func buttonPressed(_ sender: UIButton) {
         delegat?.buttonAction(cell: self, tag: sender.tag)
     }
     
     @objc private func filterButtonPressed(_ sender: UIButton) {
-        delegat?.actionSV(cell: self, index: sender.tag)
+
+        changeTitleButtonColor(tag: sender.tag)
+
         switch sender.tag {
         case 0:
-            UserDefaults.standard.setOrderRequest(value: Order.history.rawValue)
+            refreshDelegate?.refreshData(idTopic: .History)
         case 1:
-            UserDefaults.standard.setOrderRequest(value: Order.athletics.rawValue)
+            refreshDelegate?.refreshData(idTopic: .Athletics)
         case 2:
-            UserDefaults.standard.setOrderRequest(value: Order.technology.rawValue)
-
+            refreshDelegate?.refreshData(idTopic: .Technology)
         default:
-            UserDefaults.standard.setOrderRequest(value: Order.history.rawValue)
+            break
         }
-
-        refreshDelegate?.refreshData()
 
     }
 }
 
-//MARK: Private methods
+//MARK: Setup Elements
 extension MainVCControlCell {
     private func setupElemenst() {
-        let attributesGray: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1),
-            .font: UIFont(name: "HelveticaNeue-Medium", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .medium)
-        ]
-        
-        let attributesBlack: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.black
-        ]
-        
+
+
         let styleSegment = UISegmentedControl(items: [UIImage(systemName: "rectangle.grid.1x2")!,
                                                       UIImage(systemName: "rectangle.grid.2x2")!
         ])
-        
-        nameSegmentedControl.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-        
-        nameSegmentedControl.selectedSegmentTintColor = .clear
-        nameSegmentedControl.setTitleTextAttributes(attributesGray, for: .normal)
-        nameSegmentedControl.setTitleTextAttributes(attributesBlack, for: .selected)
-        nameSegmentedControl.selectedSegmentIndex = 0
-        nameSegmentedControl.backgroundColor = .white
-        nameSegmentedControl.selectedSegmentTintColor = .white
-        nameSegmentedControl.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
-        
-        nameSegmentedControl.setWidth(70, forSegmentAt: 0)
-        nameSegmentedControl.setWidth(47, forSegmentAt: 1)
-        nameSegmentedControl.setWidth(70, forSegmentAt: 2)
-        
-        nameSegmentedControl.addTarget(self, action: #selector(actionStyleSegmented(_:)), for: .valueChanged)
-        
         styleSegment.tintColor = .brown
         styleSegment.backgroundColor = .none
         
-        buttonFirst.setImage(UIImage(systemName: "rectangle.grid.1x2.fill"), for: .normal)
-        buttonFirst.tintColor = .black
-        buttonFirst.tag = 0
-        buttonFirst.addTarget(self,action: #selector(buttonPressed), for: .touchUpInside)
+        oneInRowButton.setImage(UIImage(systemName: "rectangle.grid.1x2.fill"), for: .normal)
+        oneInRowButton.tintColor = .black
+        oneInRowButton.tag = 0
+        oneInRowButton.addTarget(self,action: #selector(buttonPressed), for: .touchUpInside)
         
-        buttonSecond.setImage(UIImage(systemName: "rectangle.grid.2x2"), for: .normal)
-        buttonSecond.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        buttonSecond.tag = 1
-        buttonSecond.addTarget(self,action: #selector(buttonPressed), for: .touchUpInside)
+        twoInRowButton.setImage(UIImage(systemName: "rectangle.grid.2x2"), for: .normal)
+        twoInRowButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        twoInRowButton.tag = 1
+        twoInRowButton.addTarget(self,action: #selector(buttonPressed), for: .touchUpInside)
     }
     
     private func setupConstraints() {
@@ -120,7 +91,7 @@ extension MainVCControlCell {
         firstStack.axis = .horizontal
         firstStack.spacing = 14
         
-        let secondStack = UIStackView(arrangedSubviews: [buttonFirst, buttonSecond])
+        let secondStack = UIStackView(arrangedSubviews: [oneInRowButton, twoInRowButton])
         secondStack.axis = .horizontal
         secondStack.spacing = 11
         
@@ -146,37 +117,30 @@ extension MainVCControlCell {
         historyButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
         athleticsButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
         technologyButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
-        
-        historyButton.tintColor = .black
-        athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
 
-        if UserDefaults.standard.getOrderRequest() == Order.history.rawValue {
-            historyButton.tintColor = .black
-            athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        } else if UserDefaults.standard.getOrderRequest() == Order.athletics.rawValue {
-
-            historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            athleticsButton.tintColor = .black
-            technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        } else if UserDefaults.standard.getOrderRequest() == Order.technology.rawValue {
-
-            historyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            technologyButton.tintColor = .black
-        } else {
-            historyButton.tintColor = .black
-            athleticsButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-            technologyButton.tintColor = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
-        }
-        
         historyButton.tag = 0
         athleticsButton.tag = 1
         technologyButton.tag = 2
+
+        changeTitleButtonColor(tag: 0)
         
         historyButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
         athleticsButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
         technologyButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchUpInside)
+    }
+
+    //MARK: Setup Buttons Color
+    private func changeTitleButtonColor(tag: Int) {
+
+        let colorDeselect = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
+        let colorSelect = UIColor.black
+
+        let collectionOfButoons: [UIButton] = [historyButton, athleticsButton, technologyButton]
+
+        collectionOfButoons.forEach { (selectButton) in
+
+            selectButton.tintColor = selectButton.tag == tag ? colorSelect : colorDeselect
+        }
+
     }
 }

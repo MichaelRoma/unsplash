@@ -63,12 +63,12 @@ class MainVCImageCell: UICollectionViewCell {
        return imageView
    }()
     
-    var unsplashPhoto: UnsplashPhoto! {
-        didSet {
-            let photoUrl = unsplashPhoto.urls["regular"]
-            guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
-            photoImageView.sd_setImage(with: url, completed: nil)
-
-        }
-    }
+//    var unsplashPhoto: UnsplashPhoto! {
+//        didSet {
+//            let photoUrl = unsplashPhoto.urls["regular"]
+//            guard let imageUrl = photoUrl, let url = URL(string: imageUrl) else { return }
+//            photoImageView.sd_setImage(with: url, completed: nil)
+//
+//        }
+//    }
 }
