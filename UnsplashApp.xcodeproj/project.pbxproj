@@ -35,7 +35,7 @@
 		D757C592251D3434003DB69C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C591251D3434003DB69C /* Configuration.swift */; };
 		D757C596251D3446003DB69C /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C595251D3446003DB69C /* Scope.swift */; };
 		D757C599251D344F003DB69C /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C598251D344F003DB69C /* Utility.swift */; };
-		D757C5DA251E0F95003DB69C /* Extension+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C5D9251E0F95003DB69C /* Extension+UserDefaults.swift */; };
+		D757C5DA251E0F95003DB69C /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C5D9251E0F95003DB69C /* UserSettings.swift */; };
 		D757C5E1251E45B1003DB69C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C5E0251E45B0003DB69C /* NetworkService.swift */; };
 		D757C5E5251E45BD003DB69C /* NetworkDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C5E4251E45BD003DB69C /* NetworkDataFetcher.swift */; };
 		D757C5E8251E6BB9003DB69C /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757C5E7251E6BB9003DB69C /* SearchResults.swift */; };
@@ -89,7 +89,7 @@
 		D757C591251D3434003DB69C /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		D757C595251D3446003DB69C /* Scope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		D757C598251D344F003DB69C /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
-		D757C5D9251E0F95003DB69C /* Extension+UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UserDefaults.swift"; sourceTree = "<group>"; };
+		D757C5D9251E0F95003DB69C /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		D757C5E0251E45B0003DB69C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		D757C5E4251E45BD003DB69C /* NetworkDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataFetcher.swift; sourceTree = "<group>"; };
 		D757C5E7251E6BB9003DB69C /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 		D757C5DC251E0FAC003DB69C /* User Defaults */ = {
 			isa = PBXGroup;
 			children = (
-				D757C5D9251E0F95003DB69C /* Extension+UserDefaults.swift */,
+				D757C5D9251E0F95003DB69C /* UserSettings.swift */,
 			);
 			path = "User Defaults";
 			sourceTree = "<group>";
@@ -468,7 +468,7 @@
 				D757C5E8251E6BB9003DB69C /* SearchResults.swift in Sources */,
 				D7BF97232511EB5900B45A5D /* CGPoint+Velocity.swift in Sources */,
 				4CF74A7F24E794E700C2C11E /* NewPosTViewController.swift in Sources */,
-				D757C5DA251E0F95003DB69C /* Extension+UserDefaults.swift in Sources */,
+				D757C5DA251E0F95003DB69C /* UserSettings.swift in Sources */,
 				4CF74A8124E7A49200C2C11E /* MainVCImageCell.swift in Sources */,
 				4CF74A8724E8EC1200C2C11E /* ProfileCellTop.swift in Sources */,
 				D7AC0DBE251F7BB600F0E5E4 /* ListTopicsResults.swift in Sources */,

@@ -25,25 +25,6 @@ class NetworkDataFetcher {
         }
     }
 
-    //    func getListTopics(completion: @escaping (ListTopicsResults?) -> ()) {
-    //        networkService.request(searchType: .topics) { (data, error) in
-    //
-    //            if let error = error {
-    //                print("Error received requesting data: \(error.localizedDescription)")
-    //                completion(nil)
-    //            }
-    //
-    //            let decode = self.decodeJSON(type: ListTopicsResults.self, from: data)
-    //
-    //            decode?.forEach({ (listTopicsResult) in
-    //                listTopicsResult.coverPhoto?.urls?.regular
-    //            })
-    //
-    //            completion(decode)
-    //        }
-    //    }
-    //
-
     func getsCurrensTopicsIDs(from topicTitle: [TopicTitles]) {
 
         //отправляем запрос на получение данных data по определенным настройкам (в зависимости от searchType)
@@ -70,16 +51,18 @@ class NetworkDataFetcher {
 
                     if topic.title == titleOfTopicDecode {
                         
-                       // Записываем в юзер дефолтс id топиков, что нам нужны по title
+                        // Записываем в юзер дефолтс id топиков, что нам нужны по title
 
                         switch titleOfTopicDecode {
 
                         case TopicTitles.Athletics.title:
-                            UserDefaults.standard.setCurrentTopicID(value: idOfTopicDecode, key: .Athletics)
+                            UserSettings.Athletics = idOfTopicDecode
+
                         case TopicTitles.History.title:
-                            UserDefaults.standard.setCurrentTopicID(value: idOfTopicDecode, key: .History)
+                            UserSettings.History = idOfTopicDecode
+                            
                         case TopicTitles.Technology.title:
-                            UserDefaults.standard.setCurrentTopicID(value: idOfTopicDecode, key: .Technology)
+                            UserSettings.Technology = idOfTopicDecode
                         default:
                             break
                         }
@@ -104,15 +87,14 @@ class NetworkDataFetcher {
 
     func getImages(idTopic: String, completion: @escaping (TopicsImagesResults?) -> ()) {
 
-            networkService.request(searchType: .getTopicsImages(id: idTopic)) { (data, error) in
-                if let error = error {
-                    print("Error received requesting data: \(error.localizedDescription)")
-                    completion(nil)
-                }
-
-                let decode = self.decodeJSON(type: TopicsImagesResults.self, from: data)
-                completion(decode)
+        networkService.request(searchType: .getTopicsImages(id: idTopic)) { (data, error) in
+            if let error = error {
+                print("Error received requesting data: \(error.localizedDescription)")
+                completion(nil)
             }
 
+            let decode = self.decodeJSON(type: TopicsImagesResults.self, from: data)
+            completion(decode)
+        }
     }
 }

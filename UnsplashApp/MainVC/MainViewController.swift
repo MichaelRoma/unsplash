@@ -8,15 +8,9 @@
 
 import UIKit
 
-extension StringProtocol {
-    var firstUppercased: String { return prefix(1).uppercased() + dropFirst() }
-    var firstCapitalized: String { return prefix(1).capitalized + dropFirst() }
-}
-
 protocol MainViewControllerUpdateDataDelegate: class {
-    func refreshData(idTopic: TopicTitlesKeys)
+    func refreshData(idTopic: String)
 }
-
 
 class MainViewController: UIViewController {
 
@@ -52,12 +46,9 @@ class MainViewController: UIViewController {
 
         searchBar.delegate = self
 
-        #warning(" Добавить норм функцию")
-
-        
         networkDataFetcher.getsCurrensTopicsIDs(from: [.Athletics, .History, .Technology])
 
-        networkDataFetcher.getImages(idTopic: UserDefaults.standard.getCurrentTopicID(key: .History)) { [weak self] (results) in
+        networkDataFetcher.getImages(idTopic: UserSettings.History) { [weak self] (results) in
 
             guard let results = results else { return }
             self?.photos = results
@@ -70,13 +61,14 @@ class MainViewController: UIViewController {
 
 extension MainViewController: MainViewControllerUpdateDataDelegate {
 
-    func refreshData(idTopic: TopicTitlesKeys) {
+    func refreshData(idTopic: String) {
 
-        networkDataFetcher.getImages(idTopic: UserDefaults.standard.getCurrentTopicID(key: idTopic)) { [weak self] (results) in
+        searchBar.text = ""
+        networkDataFetcher.getImages(idTopic: idTopic) { [weak self] (results) in
 
             guard let results = results else { return }
             self?.photos = results
-            self?.createCollectionView()
+            //self?.createCollectionView()
             self?.collectionView.reloadData()
             self?.refresh()
         }
@@ -90,7 +82,6 @@ extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         guard let searchText = searchBar.text else { return }
-        print(searchText)
 
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
@@ -99,12 +90,16 @@ extension MainViewController: UISearchBarDelegate {
                 guard let fetchedPhotos = searchResults else { return }
 
                 self?.searchPhotos = fetchedPhotos.results
-                self?.createCollectionView()
+                //self?.createCollectionView()
                 self?.collectionView.reloadData()
                 self?.refresh()
-
+                self?.searchBarSearchButtonClicked(searchBar)
             }
         })
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
 }
 
@@ -252,6 +247,7 @@ extension MainViewController: ChangeCellViewProtocol {
 extension MainViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         let newViewController = ScrollImageViewController()
         self.navigationController?.pushViewController(newViewController, animated: true)
     }

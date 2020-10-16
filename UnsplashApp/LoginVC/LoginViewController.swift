@@ -23,6 +23,8 @@ class LoginViewController: UIViewController {
 
         setupView()
         setupConstrains()
+
+        print(UserSettings.isLoggedIn)
     }
 
     private func setupView() {

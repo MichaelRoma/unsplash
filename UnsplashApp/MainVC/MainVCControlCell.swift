@@ -9,6 +9,7 @@ protocol ChangeCellViewProtocol: class {
     func buttonAction(cell: MainVCControlCell, tag: Int)
 }
 
+
 import UIKit
 
 class MainVCControlCell: UICollectionViewCell {
@@ -50,11 +51,11 @@ class MainVCControlCell: UICollectionViewCell {
 
         switch sender.tag {
         case 0:
-            refreshDelegate?.refreshData(idTopic: .History)
+            refreshDelegate?.refreshData(idTopic: UserSettings.History)
         case 1:
-            refreshDelegate?.refreshData(idTopic: .Athletics)
+            refreshDelegate?.refreshData(idTopic: UserSettings.Athletics)
         case 2:
-            refreshDelegate?.refreshData(idTopic: .Technology)
+            refreshDelegate?.refreshData(idTopic: UserSettings.Technology)
         default:
             break
         }
@@ -110,6 +111,7 @@ extension MainVCControlCell {
     }
     
     private func buttonCreation() {
+
         historyButton.setTitle("History", for: .normal)
         athleticsButton.setTitle("Athletics", for: .normal)
         technologyButton.setTitle("Technology", for: .normal)
@@ -130,7 +132,7 @@ extension MainVCControlCell {
     }
 
     //MARK: Setup Buttons Color
-    private func changeTitleButtonColor(tag: Int) {
+     func changeTitleButtonColor(tag: Int) {
 
         let colorDeselect = UIColor(red: 162/255, green: 161/255, blue: 161/255, alpha: 1)
         let colorSelect = UIColor.black

@@ -35,7 +35,6 @@ class NetworkService {
 
         let parameters = self.prepareParaments(searchType: searchType)
         let url = self.url(searchType: searchType.typeName, params: parameters)
-//864f40e4cbc3adc205e2ba2c97d79ae03f72d8def4b797c5a8a1932171c4a685
 
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = prepareHeader()

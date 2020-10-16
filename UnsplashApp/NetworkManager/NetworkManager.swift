@@ -27,11 +27,13 @@ class NetworkManager {
                if let accessToken = token {
                    self.unsplashToken = accessToken
 
-                UserDefaults.standard.setLoggedIn(value: true)
+
+                UserSettings.isLoggedIn = true
 
                 guard let token =  accessToken.accessToken else { return }
 
-                UserDefaults.standard.setUserToken(value: token)
+
+                UserSettings.userToken = token
 
                 ///метод
                 self.networkExitViewProtocol?.exit()

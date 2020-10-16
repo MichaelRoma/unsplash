@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         NetworkManager.sharedManager.setUpWithAppId(appId: Configuration.UnsplashSettings.clientID, secret: Configuration.UnsplashSettings.clientSecret)
 
-        if UserDefaults.standard.isLoggedIn() {
+        if UserSettings.isLoggedIn {
 
            // window?.rootViewController = MainTabBarController()
             window?.rootViewController = MainTabBarController()

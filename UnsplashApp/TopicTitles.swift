@@ -26,16 +26,4 @@ enum TopicTitles {
             return "Technology"
         }
     }
-
-    var url: [String] {
-        switch self {
-
-        case .History:
-            return UserDefaults.standard.getTopicImageURLS(key: .History)
-        case .Athletics:
-            return  UserDefaults.standard.getTopicImageURLS(key: .Athletics)
-        case .Technology:
-            return UserDefaults.standard.getTopicImageURLS(key: .Technology)
-        }
-    }
 }
